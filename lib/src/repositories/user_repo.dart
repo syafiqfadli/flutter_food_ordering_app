@@ -30,7 +30,7 @@ class UserRepoImpl implements UserRepo {
           (previous, r) => previous,
         );
 
-        return Left(failure);
+        return Left(ServerFailure(message: failure.message));
       }
 
       final userJson = responseEither.getOrElse(() => ResponseEntity.empty);

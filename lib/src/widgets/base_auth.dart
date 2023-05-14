@@ -22,7 +22,7 @@ class _BaseAuthState extends State<BaseAuth> {
         backgroundColor: AppColor.backgroundColor,
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(15, 60, 15, 0),
+            padding: const EdgeInsets.fromLTRB(15, 50, 15, 0),
             child: Column(
               children: [
                 Padding(
@@ -46,7 +46,7 @@ class _BaseAuthState extends State<BaseAuth> {
                                 );
                               },
                               icon: const Icon(
-                                Icons.arrow_back_ios_new_rounded,
+                                Icons.arrow_back,
                               ),
                             ),
                           ),

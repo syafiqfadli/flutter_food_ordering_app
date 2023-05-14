@@ -8,7 +8,15 @@ void blocInit() {
     () => LoginCubit(authRepo: blocInject()),
   );
 
+  blocInject.registerLazySingleton<LogoutCubit>(
+    () => LogoutCubit(authRepo: blocInject()),
+  );
+
   blocInject.registerLazySingleton<SignUpCubit>(
     () => SignUpCubit(authRepo: blocInject()),
+  );
+
+  blocInject.registerLazySingleton<SetPageCubit>(
+    () => SetPageCubit(),
   );
 }

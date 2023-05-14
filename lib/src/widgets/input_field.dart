@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_ordering_app/src/utils/constants.dart';
+import 'package:flutter_food_ordering_app/src/utils/utils.dart';
 
 class InputFieldWidget extends StatelessWidget {
   final bool? enabled;
@@ -39,13 +39,18 @@ class InputFieldWidget extends StatelessWidget {
       validator: validate,
       keyboardType: inputType,
       style: TextStyle(color: textColor),
+      cursorColor: AppColor.primaryColor,
       decoration: InputDecoration(
         fillColor: AppColor.backgroundColor,
         filled: true,
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: AppColor.primaryColor),
+        ),
         labelText: label,
+        labelStyle: const TextStyle(color: AppColor.primaryColor),
         hintText: hint,
         errorText: null,
         contentPadding: const EdgeInsets.all(10),
