@@ -23,14 +23,16 @@ class AppRepoImpl implements AppRepo {
       final String firebaseId = firebaseAuth.currentUser!.uid;
       final Uri url = Uri.parse("${ApiUrl.userInfo}?firebaseId=$firebaseId");
 
-      final responseEither = await apiDataSource.get(url);
+      final responseEither = await apiDataSource.get(
+        url,
+        headers: {'Content-Type': 'application/json'},
+      );
 
       if (responseEither.isLeft()) {
         final failure = responseEither.foldLeft<Failure>(
           const ServerFailure(),
           (previous, r) => previous,
         );
-
         return Left(failure);
       }
 
@@ -40,6 +42,8 @@ class AppRepoImpl implements AppRepo {
 
       return Right(userEntity);
     } catch (e) {
+      print(e.toString());
+
       return Left(SystemFailure(message: e.toString()));
     }
   }
@@ -47,12 +51,14 @@ class AppRepoImpl implements AppRepo {
   @override
   Future<Either<Failure, void>> checkoutOrder({required String cartId}) async {
     try {
+      final String firebaseId = firebaseAuth.currentUser!.uid;
       final Uri url = Uri.parse(ApiUrl.checkoutOrder);
 
       final responseEither = await apiDataSource.patch(
         url,
         headers: {'Content-Type': 'application/json'},
         body: {
+          "firebaseId": firebaseId,
           "cartId": cartId,
         },
       );

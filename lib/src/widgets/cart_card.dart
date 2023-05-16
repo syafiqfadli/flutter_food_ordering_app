@@ -3,32 +3,21 @@ import 'package:flutter_food_ordering_app/src/entities/entities.dart';
 import 'package:flutter_food_ordering_app/src/pages/app/cart_details_page.dart';
 import 'package:flutter_food_ordering_app/src/utils/utils.dart';
 
-class CartCard extends StatefulWidget {
-  final CartEntity cart;
+class CartCard extends StatelessWidget {
   final int index;
+  final CartEntity cart;
 
-  const CartCard({
-    Key? key,
-    required this.cart,
-    required this.index,
-  }) : super(key: key);
+  const CartCard({super.key, required this.index, required this.cart});
 
-  @override
-  State<CartCard> createState() => _CartCardState();
-}
-
-class _CartCardState extends State<CartCard> {
   @override
   Widget build(BuildContext context) {
-    CartEntity cart = widget.cart;
-    int index = widget.index;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => CartDetailPage(
+              builder: (context) => CartDetailsPage(
                 index: index,
                 restaurantName: cart.restaurantName,
               ),

@@ -8,3 +8,4 @@ export 'app/history_page.dart';
 export 'app/profile_page.dart.dart';
 export 'app/cart_page.dart';
 export 'app/cart_details_page.dart';
+export 'app/order_details_page.dart';

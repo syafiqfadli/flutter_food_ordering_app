@@ -9,6 +9,8 @@ abstract class CheckoutOrderState extends Equatable {
 
 class CheckoutOrderInitial extends CheckoutOrderState {}
 
+class CheckoutOrderLoading extends CheckoutOrderState {}
+
 class CheckoutOrderSuccessful extends CheckoutOrderState {}
 
 class CheckoutOrderError extends CheckoutOrderState {

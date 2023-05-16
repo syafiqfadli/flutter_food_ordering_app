@@ -9,8 +9,6 @@ abstract class ServerState extends Equatable {
 
 class ServerInitial extends ServerState {}
 
-class ServerLoading extends ServerState {}
-
 class ServerOnline extends ServerState {}
 
 class ServerError extends ServerState {

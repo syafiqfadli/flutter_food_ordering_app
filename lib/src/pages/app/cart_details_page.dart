@@ -6,21 +6,21 @@ import 'package:flutter_food_ordering_app/src/pages/pages.dart';
 import 'package:flutter_food_ordering_app/src/utils/utils.dart';
 import 'package:flutter_food_ordering_app/src/widgets/widgets.dart';
 
-class CartDetailPage extends StatefulWidget {
+class CartDetailsPage extends StatefulWidget {
   final int index;
   final String restaurantName;
 
-  const CartDetailPage({
+  const CartDetailsPage({
     super.key,
     required this.index,
     required this.restaurantName,
   });
 
   @override
-  State<CartDetailPage> createState() => _CartDetailPageState();
+  State<CartDetailsPage> createState() => _CartDetailsPageState();
 }
 
-class _CartDetailPageState extends State<CartDetailPage> {
+class _CartDetailsPageState extends State<CartDetailsPage> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -52,15 +52,7 @@ class _CartDetailPageState extends State<CartDetailPage> {
 
             if (!mounted) return;
 
-            context.read<SetPageCubit>().setIndex(3);
-
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => const AppPage(),
-              ),
-              (route) => false,
-            );
+            _navigateToStatusPage(context);
           }
         },
         child: Expanded(
@@ -85,15 +77,33 @@ class _CartDetailPageState extends State<CartDetailPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          _checkout(user.cart[widget.index].cartId);
+                      child: BlocSelector<CheckoutOrderCubit,
+                          CheckoutOrderState, bool>(
+                        selector: (state) {
+                          if (state is CheckoutOrderLoading) {
+                            return true;
+                          }
+                          return false;
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColor.primaryColor,
-                          fixedSize: Size(width, 50),
-                        ),
-                        child: const Text('CHECKOUT'),
+                        builder: (context, isLoading) {
+                          if (isLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(
+                                color: AppColor.primaryColor,
+                              ),
+                            );
+                          }
+                          return ElevatedButton(
+                            onPressed: () {
+                              _checkout(user.cart[widget.index].cartId);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColor.primaryColor,
+                              fixedSize: Size(width, 50),
+                            ),
+                            child: const Text('CHECKOUT'),
+                          );
+                        },
                       ),
                     ),
                   ],
@@ -103,6 +113,18 @@ class _CartDetailPageState extends State<CartDetailPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _navigateToStatusPage(BuildContext context) {
+    context.read<SetPageCubit>().setIndex(1);
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => const AppPage(),
+      ),
+      (route) => false,
     );
   }
 

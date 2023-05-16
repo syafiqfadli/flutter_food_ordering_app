@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_food_ordering_app/src/bloc/app/user_info_cubit.dart';
 import 'package:flutter_food_ordering_app/src/pages/pages.dart';
 import 'package:flutter_food_ordering_app/src/utils/utils.dart';
 import 'package:flutter_food_ordering_app/src/widgets/widgets.dart';
@@ -76,13 +78,7 @@ class _BaseAppState extends State<BaseApp> {
                             ? Align(
                                 alignment: Alignment.centerRight,
                                 child: IconButton(
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => const CartPage(),
-                                      ),
-                                    );
-                                  },
+                                  onPressed: _openCart,
                                   icon: const CartIcon(),
                                 ),
                               )
@@ -96,6 +92,18 @@ class _BaseAppState extends State<BaseApp> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Future<void> _openCart() async {
+    await context.read<UserInfoCubit>().userInfo();
+
+    if (!mounted) return;
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const CartPage(),
       ),
     );
   }

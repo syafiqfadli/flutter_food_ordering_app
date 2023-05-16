@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
       child: MultiBlocListener(
         listeners: [
           BlocListener<ServerCubit, ServerState>(
-            listener: (context, state) {
+            listener: (context, state) async {
               if (state is ServerError || state is ServerInitial) {
                 DialogService.showMessage(
                   title: "Server Offline",
@@ -36,6 +36,17 @@ class _LoginPageState extends State<LoginPage> {
                   width: width,
                   context: context,
                 );
+              }
+
+              if (state is ServerOnline) {
+                FocusScope.of(context).unfocus();
+
+                final String email = _emailController.text.trim();
+                final String password = _passwordController.text.trim();
+
+                await context
+                    .read<LoginCubit>()
+                    .login(email: email, password: password);
               }
             },
           ),
@@ -49,6 +60,17 @@ class _LoginPageState extends State<LoginPage> {
                   width: width,
                   context: context,
                 );
+              }
+
+              if (state is LoginSuccessful) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AppPage(),
+                  ),
+                );
+
+                _emailController.clear();
+                _passwordController.clear();
               }
             },
           ),
@@ -153,34 +175,8 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    await context.read<ServerCubit>().isServerOnline();
+    FocusManager.instance.primaryFocus?.unfocus();
 
-    if (!mounted) return;
-
-    final ServerState serverState = context.read<ServerCubit>().state;
-
-    if (serverState is ServerError || serverState is ServerInitial) return;
-
-    FocusScope.of(context).unfocus();
-
-    final String email = _emailController.text.trim();
-    final String password = _passwordController.text.trim();
-
-    await context.read<LoginCubit>().login(email: email, password: password);
-
-    if (!mounted) return;
-
-    final LoginState loginState = context.read<LoginCubit>().state;
-
-    if (loginState is LoginError) return;
-
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const AppPage(),
-      ),
-    );
-
-    _emailController.clear();
-    _passwordController.clear();
+    await context.read<ServerCubit>().isServerOnline(isLoginPage: true);
   }
 }

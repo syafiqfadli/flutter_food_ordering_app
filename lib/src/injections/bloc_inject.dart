@@ -29,6 +29,10 @@ void blocInit() {
   );
 
   blocInject.registerLazySingleton<ServerCubit>(
-    () => ServerCubit(serverRepo: blocInject()),
+    () => ServerCubit(
+      serverRepo: blocInject(),
+      loginCubit: blocInject(),
+      signUpCubit: blocInject(),
+    ),
   );
 }

@@ -25,37 +25,68 @@ class _SignUpPageState extends State<SignUpPage> {
 
     return BaseAuth(
       title: "Sign Up",
-      child: BlocListener<SignUpCubit, SignUpState>(
-        listener: (context, state) async {
-          if (state is SignUpError) {
-            DialogService.showMessage(
-              title: "Sign Up Error",
-              message: state.message,
-              icon: Icons.error,
-              width: width,
-              context: context,
-            );
-          }
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<SignUpCubit, SignUpState>(
+            listener: (context, state) async {
+              if (state is SignUpError) {
+                DialogService.showMessage(
+                  title: "Sign Up Error",
+                  message: state.message,
+                  icon: Icons.error,
+                  width: width,
+                  context: context,
+                );
+              }
 
-          if (state is SignUpSuccessful) {
-            await DialogService.showMessage(
-              title: "Account Created",
-              icon: Icons.check,
-              width: width,
-              context: context,
-            );
+              if (state is SignUpSuccessful) {
+                await DialogService.showMessage(
+                  title: "Account Created",
+                  icon: Icons.check,
+                  width: width,
+                  context: context,
+                );
 
-            if (!mounted) return;
+                if (!mounted) return;
 
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => const LoginPage(),
-              ),
-              (route) => false,
-            );
-          }
-        },
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const LoginPage(),
+                  ),
+                  (route) => false,
+                );
+              }
+            },
+          ),
+          BlocListener<ServerCubit, ServerState>(
+            listener: (context, state) async {
+              if (state is ServerError || state is ServerInitial) {
+                DialogService.showMessage(
+                  title: "Server Offline",
+                  message: "Sorry for any inconvenience!",
+                  icon: Icons.error,
+                  width: width,
+                  context: context,
+                );
+              }
+
+              if (state is SignUpSuccessful) {
+                FocusScope.of(context).unfocus();
+
+                final String name = _nameController.text.trim();
+                final String email = _emailController.text.trim();
+                final String password = _passwordController.text.trim();
+
+                await context.read<SignUpCubit>().signUp(
+                      name: name,
+                      email: email,
+                      password: password,
+                    );
+              }
+            },
+          ),
+        ],
         child: Form(
           key: _formKey,
           child: Padding(
@@ -170,24 +201,8 @@ class _SignUpPageState extends State<SignUpPage> {
       return;
     }
 
-    await context.read<ServerCubit>().isServerOnline();
+    FocusManager.instance.primaryFocus?.unfocus();
 
-    if (!mounted) return;
-
-    final ServerState serverState = context.read<ServerCubit>().state;
-
-    if (serverState is ServerError || serverState is ServerInitial) return;
-
-    FocusScope.of(context).unfocus();
-
-    final String name = _nameController.text.trim();
-    final String email = _emailController.text.trim();
-    final String password = _passwordController.text.trim();
-
-    await context.read<SignUpCubit>().signUp(
-          name: name,
-          email: email,
-          password: password,
-        );
+    await context.read<ServerCubit>().isServerOnline(isLoginPage: false);
   }
 }

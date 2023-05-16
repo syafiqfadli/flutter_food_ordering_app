@@ -37,4 +37,12 @@ class LoginCubit extends Cubit<LoginState> {
       },
     );
   }
+
+  void loginLoading() {
+    emit(LoginLoading());
+  }
+
+  void loginInitial() {
+    emit(LoginInitial());
+  }
 }

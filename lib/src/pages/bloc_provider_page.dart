@@ -25,8 +25,8 @@ class _BlocProviderPageState extends State<BlocProviderPage> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: _signUpCubit),
-        BlocProvider.value(value: _loginCubit),
+        BlocProvider(create: (context) => _signUpCubit),
+        BlocProvider(create: (context) => _loginCubit),
         BlocProvider.value(value: _logoutCubit),
         BlocProvider.value(value: _setPageCubit),
         BlocProvider.value(value: _serverCubit),

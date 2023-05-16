@@ -28,4 +28,12 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(SignUpSuccessful());
     });
   }
+
+  void signUpLoading() {
+    emit(SignUpLoading());
+  }
+
+  void signUpInitial() {
+    emit(SignUpInitial());
+  }
 }

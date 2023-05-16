@@ -17,7 +17,10 @@ class ServerRepoImpl implements ServerRepo {
     try {
       final Uri url = Uri.parse(ApiUrl.serverStatus);
 
-      final responseEither = await apiDataSource.get(url);
+      final responseEither = await apiDataSource.get(
+        url,
+        headers: {'Content-Type': 'application/json'},
+      );
 
       if (responseEither.isLeft()) {
         return const Left(ServerFailure(message: "Server Offline"));

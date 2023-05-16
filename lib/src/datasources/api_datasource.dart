@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
@@ -34,10 +35,14 @@ class ApiDataSourceImpl implements ApiDataSource {
     Map<String, String>? headers,
   }) async {
     try {
-      final rawResponse = await http.get(
-        url,
-        headers: headers,
-      );
+      final rawResponse = await http
+          .get(
+            url,
+            headers: headers,
+          )
+          .timeout(
+            const Duration(seconds: 3),
+          );
 
       final response = ResponseModel.fromJson(jsonDecode(rawResponse.body));
 
@@ -46,6 +51,8 @@ class ApiDataSourceImpl implements ApiDataSource {
       }
 
       return Right(response);
+    } on TimeoutException catch (timeout) {
+      return Left(ServerFailure(message: timeout.toString()));
     } catch (error) {
       return Left(ServerFailure(message: error.toString()));
     }

@@ -10,6 +10,8 @@ class CheckoutOrderCubit extends Cubit<CheckoutOrderState> {
   CheckoutOrderCubit({required this.appRepo}) : super(CheckoutOrderInitial());
 
   Future<void> checkoutOrder({required String cartId}) async {
+    emit(CheckoutOrderLoading());
+
     final checkoutEither = await appRepo.checkoutOrder(cartId: cartId);
 
     checkoutEither.fold(

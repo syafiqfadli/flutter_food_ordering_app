@@ -2,26 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food_ordering_app/src/entities/entities.dart';
 import 'package:flutter_food_ordering_app/src/utils/utils.dart';
 
-class CartDetailsCard extends StatefulWidget {
+class OrderDetailsCard extends StatelessWidget {
   final int index;
   final MenuEntity menu;
 
-  const CartDetailsCard({
-    Key? key,
-    required this.index,
-    required this.menu,
-  }) : super(key: key);
+  const OrderDetailsCard({super.key, required this.index, required this.menu});
 
-  @override
-  State<CartDetailsCard> createState() => _CartDetailsCardState();
-}
-
-class _CartDetailsCardState extends State<CartDetailsCard> {
   @override
   Widget build(BuildContext context) {
-    MenuEntity menu = widget.menu;
-    int index = widget.index + 1;
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: SizedBox(
@@ -50,7 +38,7 @@ class _CartDetailsCardState extends State<CartDetailsCard> {
                   ),
                   child: Center(
                     child: Text(
-                      '$index',
+                      '${index + 1}',
                       style: const TextStyle(fontSize: 20),
                     ),
                   ),
@@ -75,14 +63,14 @@ class _CartDetailsCardState extends State<CartDetailsCard> {
                           ),
                         ),
                         Text(
-                          'RM ${menu.totalPrice.toStringAsFixed(2)}',
+                          'Quantity: ${menu.quantity}',
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          'Quantity: ${menu.quantity}',
+                          'Total Price: RM ${menu.totalPrice.toStringAsFixed(2)}',
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -92,14 +80,6 @@ class _CartDetailsCardState extends State<CartDetailsCard> {
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                    size: 35,
-                  ),
-                )
               ],
             ),
           ),
