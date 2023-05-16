@@ -1,4 +1,4 @@
-import 'package:flutter_food_ordering_app/src/entities/user/user.dart';
+import 'package:flutter_food_ordering_app/src/entities/entities.dart';
 
 class OrderModel extends OrderEntity {
   const OrderModel({required super.orderId});

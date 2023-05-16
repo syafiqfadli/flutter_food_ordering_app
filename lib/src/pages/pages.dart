@@ -6,3 +6,5 @@ export 'app/home_page.dart';
 export 'app/status_page.dart';
 export 'app/history_page.dart';
 export 'app/profile_page.dart.dart';
+export 'app/cart_page.dart';
+export 'app/cart_details_page.dart';

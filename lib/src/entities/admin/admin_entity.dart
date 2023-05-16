@@ -1,32 +1,29 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_food_ordering_app/src/entities/entities.dart';
 
-class UserEntity extends Equatable {
+class AdminEntity extends Equatable {
   final String firebaseId;
   final String name;
   final String email;
-  final List<CartEntity> cart;
   final List<OrderEntity> order;
-  final List<HistoryEntity> history;
+  final List<RestaurantEntity> restaurant;
 
-  const UserEntity({
+  const AdminEntity({
     required this.firebaseId,
     required this.name,
     required this.email,
-    required this.cart,
     required this.order,
-    required this.history,
+    required this.restaurant,
   });
 
   @override
-  List<Object?> get props => [firebaseId, name, email, cart, order, history];
+  List<Object?> get props => [firebaseId, name, email, order, restaurant];
 
-  static get empty => const UserEntity(
+  static get empty => const AdminEntity(
         firebaseId: '',
         name: '',
         email: '',
-        cart: [],
+        restaurant: [],
         order: [],
-        history: [],
       );
 }

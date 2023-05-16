@@ -14,12 +14,20 @@ class AppPage extends StatefulWidget {
 
 class _AppPageState extends State<AppPage> {
   final SetPageCubit setPageCubit = blocInject<SetPageCubit>();
+  late UserInfoCubit userInfoCubit;
+
   final pages = [
     const HomePage(),
     const StatusPage(),
     const HistoryPage(),
     const ProfilePage(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    userInfoCubit = blocInject<UserInfoCubit>()..userInfo();
+  }
 
   @override
   Widget build(BuildContext context) {

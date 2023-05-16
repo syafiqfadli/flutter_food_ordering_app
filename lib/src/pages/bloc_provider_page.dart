@@ -16,6 +16,10 @@ class _BlocProviderPageState extends State<BlocProviderPage> {
   final LoginCubit _loginCubit = blocInject<LoginCubit>();
   final LogoutCubit _logoutCubit = blocInject<LogoutCubit>();
   final SetPageCubit _setPageCubit = blocInject<SetPageCubit>();
+  final ServerCubit _serverCubit = blocInject<ServerCubit>();
+  final UserInfoCubit _userInfoCubit = blocInject<UserInfoCubit>();
+  final CheckoutOrderCubit _checkoutOrderCubit =
+      blocInject<CheckoutOrderCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +29,9 @@ class _BlocProviderPageState extends State<BlocProviderPage> {
         BlocProvider.value(value: _loginCubit),
         BlocProvider.value(value: _logoutCubit),
         BlocProvider.value(value: _setPageCubit),
+        BlocProvider.value(value: _serverCubit),
+        BlocProvider.value(value: _userInfoCubit),
+        BlocProvider.value(value: _checkoutOrderCubit),
       ],
       child: widget.child,
     );

@@ -27,46 +27,40 @@ class _BaseAuthState extends State<BaseAuth> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(bottom: 30),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                  child: Stack(
+                    alignment: Alignment.center,
                     children: [
-                      Stack(
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (context) => const WelcomePage(),
+                              ),
+                              (Route<dynamic> route) => false,
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back,
+                          ),
+                        ),
+                      ),
+                      Align(
                         alignment: Alignment.center,
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                    builder: (context) => const WelcomePage(),
-                                  ),
-                                  (Route<dynamic> route) => false,
-                                );
-                              },
-                              icon: const Icon(
-                                Icons.arrow_back,
+                        child: SizedBox(
+                          width: width * 0.6,
+                          child: Center(
+                            child: Text(
+                              widget.title,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                fontSize: 34,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: SizedBox(
-                              width: width * 0.6,
-                              child: Center(
-                                child: Text(
-                                  widget.title,
-                                  maxLines: 1,
-                                  style: const TextStyle(
-                                    fontSize: 34,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ],
                   ),

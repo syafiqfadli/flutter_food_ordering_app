@@ -1,18 +1,26 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_food_ordering_app/src/entities/entities.dart';
 
 class CartEntity extends Equatable {
   final String cartId;
-  final String menu;
-  final double price;
-  final int quantity;
+  final String restaurantId;
+  final String restaurantName;
+  final List<MenuEntity> menuList;
 
   const CartEntity({
     required this.cartId,
-    required this.menu,
-    required this.price,
-    required this.quantity,
+    required this.restaurantId,
+    required this.restaurantName,
+    required this.menuList,
   });
 
   @override
-  List<Object?> get props => [cartId, menu, price, quantity];
+  List<Object?> get props => [cartId, restaurantId, restaurantName, menuList];
+
+  static get empty => const CartEntity(
+        cartId: '',
+        restaurantId: '',
+        restaurantName: '',
+        menuList: [],
+      );
 }

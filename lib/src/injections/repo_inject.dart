@@ -9,4 +9,16 @@ void repoInit() {
       apiDataSource: repoInject(),
     ),
   );
+
+  repoInject.registerLazySingleton<AppRepo>(
+    () => AppRepoImpl(
+      apiDataSource: repoInject(),
+    ),
+  );
+
+  repoInject.registerLazySingleton<ServerRepo>(
+    () => ServerRepoImpl(
+      apiDataSource: repoInject(),
+    ),
+  );
 }

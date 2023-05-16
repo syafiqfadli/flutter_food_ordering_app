@@ -6,15 +6,16 @@ import 'package:flutter_food_ordering_app/src/errors/failures.dart';
 import 'package:flutter_food_ordering_app/src/models/models.dart';
 import 'package:flutter_food_ordering_app/src/utils/utils.dart';
 
-abstract class UserRepo {
+abstract class AppRepo {
   Future<Either<Failure, UserEntity>> userInfo();
+  Future<Either<Failure, void>> checkoutOrder({required String cartId});
 }
 
-class UserRepoImpl implements UserRepo {
+class AppRepoImpl implements AppRepo {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final ApiDataSource apiDataSource;
 
-  UserRepoImpl({required this.apiDataSource});
+  AppRepoImpl({required this.apiDataSource});
 
   @override
   Future<Either<Failure, UserEntity>> userInfo() async {
@@ -30,7 +31,7 @@ class UserRepoImpl implements UserRepo {
           (previous, r) => previous,
         );
 
-        return Left(ServerFailure(message: failure.message));
+        return Left(failure);
       }
 
       final userJson = responseEither.getOrElse(() => ResponseEntity.empty);
@@ -38,6 +39,34 @@ class UserRepoImpl implements UserRepo {
       final userEntity = UserModel.fromJson(userJson.data);
 
       return Right(userEntity);
+    } catch (e) {
+      return Left(SystemFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> checkoutOrder({required String cartId}) async {
+    try {
+      final Uri url = Uri.parse(ApiUrl.checkoutOrder);
+
+      final responseEither = await apiDataSource.patch(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: {
+          "cartId": cartId,
+        },
+      );
+
+      if (responseEither.isLeft()) {
+        final failure = responseEither.foldLeft<Failure>(
+          const ServerFailure(),
+          (previous, r) => previous,
+        );
+
+        return Left(failure);
+      }
+
+      return const Right(null);
     } catch (e) {
       return Left(SystemFailure(message: e.toString()));
     }

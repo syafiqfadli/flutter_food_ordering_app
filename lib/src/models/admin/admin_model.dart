@@ -1,30 +1,26 @@
 import 'package:flutter_food_ordering_app/src/entities/entities.dart';
 import 'package:flutter_food_ordering_app/src/models/models.dart';
 
-class UserModel extends UserEntity {
-  const UserModel({
+class AdminModel extends AdminEntity {
+  const AdminModel({
     required super.firebaseId,
     required super.name,
     required super.email,
-    required super.cart,
     required super.order,
-    required super.history,
+    required super.restaurant,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> parseJson) {
-    return UserModel(
+  factory AdminModel.fromJson(Map<String, dynamic> parseJson) {
+    return AdminModel(
       firebaseId: parseJson['firebaseId'],
       name: parseJson['name'],
       email: parseJson['email'],
-      cart: parseJson["cart"] != null
-          ? CartModel.fromList(parseJson["cart"])
-          : <CartModel>[],
       order: parseJson["order"] != null
           ? OrderModel.fromList(parseJson["order"])
           : <OrderModel>[],
-      history: parseJson["history"] != null
-          ? HistoryModel.fromList(parseJson["history"])
-          : <HistoryModel>[],
+      restaurant: parseJson["restaurant"] != null
+          ? RestaurantModel.fromList(parseJson["restaurant"])
+          : <RestaurantModel>[],
     );
   }
 }

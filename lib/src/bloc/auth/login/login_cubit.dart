@@ -6,8 +6,12 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final AuthRepo authRepo;
+  final AppRepo appRepo;
 
-  LoginCubit({required this.authRepo}) : super(LoginInitial());
+  LoginCubit({
+    required this.authRepo,
+    required this.appRepo,
+  }) : super(LoginInitial());
 
   Future<void> login({
     required String email,
@@ -17,10 +21,20 @@ class LoginCubit extends Cubit<LoginState> {
 
     final loginEither = await authRepo.login(email: email, password: password);
 
-    loginEither.fold((failure) {
-      emit(LoginError(message: failure.message));
-    }, (_) {
-      emit(LoginSuccessful());
-    });
+    loginEither.fold(
+      (failure) {
+        emit(LoginError(message: failure.message));
+      },
+      (_) async {
+        final userEither = await appRepo.userInfo();
+
+        if (userEither.isLeft()) {
+          emit(const LoginError(message: "System failure."));
+          return;
+        }
+
+        emit(LoginSuccessful());
+      },
+    );
   }
 }

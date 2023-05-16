@@ -54,9 +54,12 @@ class AuthRepoImpl implements AuthRepo {
           const ServerFailure(),
           (previous, r) => previous,
         );
+
         firebaseAuth.currentUser!.delete();
-        return Left(ServerFailure(message: failure.message));
+        return Left(failure);
       }
+
+      await logout();
 
       return const Right(null);
     } on FirebaseAuthException catch (error) {

@@ -14,13 +14,8 @@ abstract class ApiUrl {
     fallback: '',
   );
 
+  static String serverStatus = "$baseUrl/server/status";
   static String createUser = "$baseUrl/user/create";
   static String userInfo = "$baseUrl/user/info";
-  // static String getAllUser = "$baseUrl/user/get-all-user";
-  // static String addRedemption = "$baseUrl/user/add-redemption-user";
-  // static String updateRewards = "$baseUrl/admin/update-reward-admin";
-  // static String getAllRewards = "$baseUrl/admin/get-all-rewards";
-  // static String deleteUserActivity = "$baseUrl/user/delete-activity-user";
-  // static String deleteUserRedemption = "$baseUrl/user/delete-redemption-user";
-  // static String sendOtp = "$baseUrl/email/send-email";
+  static String checkoutOrder = "$baseUrl/user/checkout-order";
 }
