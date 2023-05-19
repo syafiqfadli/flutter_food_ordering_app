@@ -28,9 +28,8 @@ class DeleteMenuCubit extends Cubit<DeleteMenuState> {
     deleteMenuEither.fold((failure) {
       emit(DeleteMenuError(message: failure.message));
     }, (_) async {
-      await userInfoCubit.userInfo();
-
       emit(DeleteMenuSuccessful());
+      await userInfoCubit.userInfo();
     });
   }
 }

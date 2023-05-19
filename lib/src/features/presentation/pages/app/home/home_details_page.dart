@@ -72,10 +72,13 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
                     );
                   }
 
-                  return ListView.builder(
+                  return GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                    ),
                     itemCount: menuList.length,
                     itemBuilder: (context, index) => HomeDetailsCard(
-                      index: index,
                       menu: menuList[index],
                       restaurantName: widget.restaurantName,
                       restaurantId: widget.restaurantId,
@@ -100,10 +103,13 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
                     );
                   }
 
-                  return ListView.builder(
+                  return GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                    ),
                     itemCount: menuList.length,
                     itemBuilder: (context, index) => HomeDetailsCard(
-                      index: index,
                       menu: menuList[index],
                       restaurantName: widget.restaurantName,
                       restaurantId: widget.restaurantId,

@@ -15,7 +15,7 @@ class MenuModel extends MenuEntity {
       menuName: parseJson["menuName"],
       price: parseJson["price"],
       quantity: parseJson["quantity"] ?? 0,
-      totalPrice: double.parse(parseJson["totalPrice"] ?? "0.0"),
+      totalPrice: parseJson["price"] * (parseJson["quantity"] ?? 0),
     );
   }
 

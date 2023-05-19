@@ -15,10 +15,11 @@ class _InputQuantityState extends State<InputQuantity> {
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GestureDetector(
           child: Container(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(10),
               decoration: const ShapeDecoration(
                 shape: CircleBorder(),
                 color: AppColor.primaryColor,
@@ -26,21 +27,22 @@ class _InputQuantityState extends State<InputQuantity> {
               child: const Text(
                 "-",
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 16,
                   color: AppColor.secondaryColor,
                 ),
               )),
           onTap: () {
-            int currentValue =
-                int.tryParse(widget.quantityController.text) ?? 0;
+            int quantity = int.parse(widget.quantityController.text);
+
             widget.quantityController.text =
-                (currentValue > 0) ? "${currentValue - 1}" : "0";
+                (quantity > 0) ? "${quantity - 1}" : "0";
           },
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           width: 50,
           child: TextField(
+            enabled: false,
             controller: widget.quantityController,
             maxLength: 3,
             textAlign: TextAlign.center,
@@ -54,22 +56,23 @@ class _InputQuantityState extends State<InputQuantity> {
         ),
         GestureDetector(
           child: Container(
-              padding: const EdgeInsets.all(12),
-              decoration: const ShapeDecoration(
-                shape: CircleBorder(),
-                color: AppColor.primaryColor,
+            padding: const EdgeInsets.all(6),
+            decoration: const ShapeDecoration(
+              shape: CircleBorder(),
+              color: AppColor.primaryColor,
+            ),
+            child: const Text(
+              "+",
+              style: TextStyle(
+                fontSize: 16,
+                color: AppColor.secondaryColor,
               ),
-              child: const Text(
-                "+",
-                style: TextStyle(
-                  fontSize: 24,
-                  color: AppColor.secondaryColor,
-                ),
-              )),
+            ),
+          ),
           onTap: () {
-            int currentValue =
-                int.tryParse(widget.quantityController.text) ?? 0;
-            widget.quantityController.text = "${currentValue + 1}";
+            int quantity = int.parse(widget.quantityController.text);
+
+            widget.quantityController.text = "${quantity + 1}";
           },
         ),
       ],

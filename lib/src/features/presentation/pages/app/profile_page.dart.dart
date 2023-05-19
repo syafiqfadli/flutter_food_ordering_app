@@ -30,66 +30,63 @@ class _ProfilePageState extends State<ProfilePage> {
                 alignment: Alignment.topCenter,
                 child: BlocBuilder<UserInfoCubit, UserEntity>(
                   builder: (context, user) {
-                    return SizedBox(
-                      width: width,
-                      child: ListView(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: CircleAvatar(
-                              radius: 50,
-                              backgroundColor: AppColor.secondaryColor,
-                              child: Icon(
-                                Icons.account_circle,
-                                size: 50,
-                              ),
+                    return ListView(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8),
+                          child: CircleAvatar(
+                            radius: 50,
+                            backgroundColor: AppColor.secondaryColor,
+                            child: Icon(
+                              Icons.account_circle,
+                              size: 50,
                             ),
                           ),
-                          Center(
-                            child: Text(
-                              user.name,
-                              style: const TextStyle(
-                                fontSize: 26,
-                                fontWeight: FontWeight.w500,
-                              ),
+                        ),
+                        Center(
+                          child: Text(
+                            user.name,
+                            style: const TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                          Center(
+                        ),
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(user.email),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Container(
+                            color: AppColor.secondaryColor,
+                            width: width,
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(user.email),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Container(
-                              color: AppColor.secondaryColor,
-                              width: width,
-                              child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Column(
-                                  children: [
-                                    const Text(
-                                      "No. of Order",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                              padding: const EdgeInsets.all(15.0),
+                              child: Column(
+                                children: [
+                                  const Text(
+                                    "No. of Order",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                    Text(
-                                      user.order.length.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                  ),
+                                  Text(
+                                    user.order.length.toString(),
+                                    style: const TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     );
                   },
                 ),

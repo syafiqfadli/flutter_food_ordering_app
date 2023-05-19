@@ -48,6 +48,7 @@ class HomeCard extends StatelessWidget {
                     ),
                     child: Text(
                       restaurant.restaurantName,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

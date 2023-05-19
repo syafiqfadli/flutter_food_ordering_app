@@ -25,7 +25,9 @@ class _BaseAppState extends State<BaseApp> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+
     bool isMainPage = widget.isMainPage;
+    String title = widget.title;
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -35,7 +37,7 @@ class _BaseAppState extends State<BaseApp> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom: 30),
+                padding: const EdgeInsets.only(bottom: 20),
                 child: Container(
                   color: AppColor.primaryColor,
                   child: Padding(
@@ -43,12 +45,12 @@ class _BaseAppState extends State<BaseApp> {
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
-                        !isMainPage
+                        !isMainPage && title != "PAYMENT"
                             ? Align(
                                 alignment: Alignment.centerLeft,
                                 child: IconButton(
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                    Navigator.pop(context);
                                   },
                                   icon: const Icon(
                                     Icons.arrow_back,
@@ -62,13 +64,18 @@ class _BaseAppState extends State<BaseApp> {
                           child: SizedBox(
                             width: width * 0.6,
                             child: Center(
-                              child: Text(
-                                widget.title,
-                                maxLines: 1,
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColor.backgroundColor,
+                              child: Padding(
+                                padding: title == "PAYMENT"
+                                    ? const EdgeInsets.symmetric(vertical: 10)
+                                    : const EdgeInsets.all(0),
+                                child: Text(
+                                  title,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColor.backgroundColor,
+                                  ),
                                 ),
                               ),
                             ),
@@ -88,7 +95,7 @@ class _BaseAppState extends State<BaseApp> {
                   ),
                 ),
               ),
-              widget.child,
+              widget.child
             ],
           ),
         ),

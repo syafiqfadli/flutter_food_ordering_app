@@ -22,8 +22,8 @@ class DeleteCartCubit extends Cubit<DeleteCartState> {
     deleteCartEither.fold((failure) {
       emit(DeleteCartError(message: failure.message));
     }, (_) async {
-      await userInfoCubit.userInfo();
       emit(DeleteCartSuccessful());
+      await userInfoCubit.userInfo();
     });
   }
 }

@@ -13,7 +13,6 @@ class AppPage extends StatefulWidget {
 }
 
 class _AppPageState extends State<AppPage> {
-  final SetPageCubit setPageCubit = blocInject<SetPageCubit>();
   late UserInfoCubit userInfoCubit;
   late HomeCubit homeCubit;
 
@@ -36,7 +35,6 @@ class _AppPageState extends State<AppPage> {
     return BlocBuilder<SetPageCubit, int>(
       builder: (context, pageNum) {
         return Scaffold(
-          body: pages[pageNum],
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             showUnselectedLabels: true,
@@ -46,7 +44,7 @@ class _AppPageState extends State<AppPage> {
             selectedItemColor: AppColor.primaryColor,
             currentIndex: pageNum,
             onTap: (index) {
-              setPageCubit.setIndex(index);
+              context.read<SetPageCubit>().setIndex(index);
             },
             items: const [
               BottomNavigationBarItem(
@@ -67,6 +65,7 @@ class _AppPageState extends State<AppPage> {
               ),
             ],
           ),
+          body: pages[pageNum],
         );
       },
     );

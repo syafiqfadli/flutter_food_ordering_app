@@ -26,9 +26,7 @@ class MainApp extends StatelessWidget {
     return BlocProviderPage(
       child: MaterialApp(
         title: 'Order Me',
-        home: Scaffold(
-          body: userStatus != null ? const AppPage() : const WelcomePage(),
-        ),
+        home: userStatus != null ? const AppPage() : const WelcomePage(),
       ),
     );
   }

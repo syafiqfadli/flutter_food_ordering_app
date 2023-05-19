@@ -10,4 +10,5 @@ export 'app/cart/cart_page.dart';
 export 'app/cart/cart_details_page.dart';
 export 'app/order/order_page.dart';
 export 'app/order/order_details_page.dart';
+export 'app/payment_status_page.dart';
 export 'bloc_provider_page.dart';

@@ -57,8 +57,6 @@ class AppRepoImpl implements AppRepo {
 
       return Right(userEntity);
     } catch (e) {
-      print(e.toString());
-
       return Left(SystemFailure(message: e.toString()));
     }
   }
@@ -150,8 +148,6 @@ class AppRepoImpl implements AppRepo {
 
       return Right(restaurantEntity);
     } catch (e) {
-      print(e.toString());
-
       return Left(SystemFailure(message: e.toString()));
     }
   }
@@ -194,8 +190,6 @@ class AppRepoImpl implements AppRepo {
 
       return const Right(null);
     } catch (e) {
-      print(e.toString());
-
       return Left(SystemFailure(message: e.toString()));
     }
   }
@@ -223,8 +217,6 @@ class AppRepoImpl implements AppRepo {
 
       return const Right(null);
     } catch (e) {
-      print(e.toString());
-
       return Left(SystemFailure(message: e.toString()));
     }
   }
@@ -256,8 +248,6 @@ class AppRepoImpl implements AppRepo {
 
       return const Right(null);
     } catch (e) {
-      print(e.toString());
-
       return Left(SystemFailure(message: e.toString()));
     }
   }
