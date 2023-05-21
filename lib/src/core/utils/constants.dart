@@ -21,6 +21,8 @@ abstract class ApiUrl {
   static String addToCart = "$baseUrl/user/add-to-cart";
   static String deleteCart = "$baseUrl/user/delete-cart";
   static String deleteMenu = "$baseUrl/user/delete-menu";
+  static String adminInfo = "$baseUrl/admin/info";
+  static String createAdmin = "$baseUrl/admin/create";
   static String searchRestaurant = "$baseUrl/admin/search-restaurant";
   static String restaurantList = "$baseUrl/admin/restaurant-list";
 }

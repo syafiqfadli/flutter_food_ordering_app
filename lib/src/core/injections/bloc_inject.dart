@@ -4,32 +4,40 @@ import 'package:get_it/get_it.dart';
 final blocInject = GetIt.instance;
 
 void blocInit() {
+  blocInject.registerLazySingleton<UserOptionCubit>(
+    () => UserOptionCubit(),
+  );
+
   blocInject.registerLazySingleton<HomeCubit>(
-    () => HomeCubit(appRepo: blocInject()),
+    () => HomeCubit(userRepo: blocInject()),
   );
 
   blocInject.registerLazySingleton<UserInfoCubit>(
-    () => UserInfoCubit(appRepo: blocInject()),
+    () => UserInfoCubit(userRepo: blocInject()),
+  );
+
+  blocInject.registerLazySingleton<AdminInfoCubit>(
+    () => AdminInfoCubit(adminRepo: blocInject()),
   );
 
   blocInject.registerLazySingleton<CheckoutOrderCubit>(
-    () => CheckoutOrderCubit(appRepo: blocInject()),
+    () => CheckoutOrderCubit(userRepo: blocInject()),
   );
 
   blocInject.registerLazySingleton<AddToCartCubit>(
-    () => AddToCartCubit(appRepo: blocInject()),
+    () => AddToCartCubit(userRepo: blocInject()),
   );
 
   blocInject.registerLazySingleton<DeleteCartCubit>(
     () => DeleteCartCubit(
-      appRepo: blocInject(),
+      userRepo: blocInject(),
       userInfoCubit: blocInject(),
     ),
   );
 
   blocInject.registerLazySingleton<DeleteMenuCubit>(
     () => DeleteMenuCubit(
-      appRepo: blocInject(),
+      userRepo: blocInject(),
       userInfoCubit: blocInject(),
     ),
   );
@@ -37,8 +45,10 @@ void blocInit() {
   blocInject.registerLazySingleton<LoginCubit>(
     () => LoginCubit(
       authRepo: blocInject(),
-      appRepo: blocInject(),
+      userRepo: blocInject(),
+      adminRepo: blocInject(),
       serverCubit: blocInject(),
+      userOptionCubit: blocInject(),
     ),
   );
 
@@ -47,11 +57,15 @@ void blocInit() {
   );
 
   blocInject.registerLazySingleton<SignUpCubit>(
-    () => SignUpCubit(authRepo: blocInject(), serverCubit: blocInject()),
+    () => SignUpCubit(
+      authRepo: blocInject(),
+      serverCubit: blocInject(),
+      userOptionCubit: blocInject(),
+    ),
   );
 
-  blocInject.registerLazySingleton<SetPageCubit>(
-    () => SetPageCubit(),
+  blocInject.registerLazySingleton<SetPageUserCubit>(
+    () => SetPageUserCubit(),
   );
 
   blocInject.registerLazySingleton<ServerCubit>(

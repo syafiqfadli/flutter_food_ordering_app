@@ -8,10 +8,12 @@ part 'signup_state.dart';
 class SignUpCubit extends Cubit<SignUpState> {
   final AuthRepo authRepo;
   final ServerCubit serverCubit;
+  final UserOptionCubit userOptionCubit;
 
   SignUpCubit({
     required this.authRepo,
     required this.serverCubit,
+    required this.userOptionCubit,
   }) : super(SignUpInitial());
 
   Future<void> signUp({
@@ -30,7 +32,19 @@ class SignUpCubit extends Cubit<SignUpState> {
       return;
     }
 
+    final option = userOptionCubit.state;
+    bool isUser = true;
+
+    if (option is UserOptionIsUser) {
+      isUser = true;
+    }
+
+    if (option is UserOptionIsAdmin) {
+      isUser = false;
+    }
+
     final signUpEither = await authRepo.signUp(
+      isUser: isUser,
       name: name,
       email: email,
       password: password,

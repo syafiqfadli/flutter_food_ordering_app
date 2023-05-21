@@ -8,13 +8,17 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final AuthRepo authRepo;
-  final AppRepo appRepo;
+  final UserRepo userRepo;
+  final AdminRepo adminRepo;
   final ServerCubit serverCubit;
+  final UserOptionCubit userOptionCubit;
 
   LoginCubit({
     required this.authRepo,
-    required this.appRepo,
+    required this.userRepo,
+    required this.adminRepo,
     required this.serverCubit,
+    required this.userOptionCubit,
   }) : super(LoginInitial());
 
   Future<void> login({
@@ -39,25 +43,50 @@ class LoginCubit extends Cubit<LoginState> {
         emit(LoginError(message: failure.message));
       },
       (_) async {
-        final userEither = await appRepo.userInfo();
-        final restaurantEither = await appRepo.restaurantList();
+        final restaurantEither = await userRepo.restaurantList();
 
-        if (userEither.isLeft() || restaurantEither.isLeft()) {
-          final userFailure = userEither.swap().getOrElse(
-                () => const SystemFailure(),
-              );
-
-          final restaurantFailure = restaurantEither.swap().getOrElse(
+        if (restaurantEither.isLeft()) {
+          final resFailure = restaurantEither.swap().getOrElse(
                 () => const SystemFailure(),
               );
 
           await authRepo.logout();
-          emit(
-            LoginError(
-                message:
-                    "User: ${userFailure.message} \nRestaurant: ${restaurantFailure.message}"),
-          );
+
+          emit(LoginError(message: resFailure.message));
+
           return;
+        }
+
+        if (userOptionCubit.state is UserOptionIsUser) {
+          final userEither = await userRepo.userInfo();
+
+          if (userEither.isLeft()) {
+            final userFailure = userEither.swap().getOrElse(
+                  () => const SystemFailure(),
+                );
+
+            await authRepo.logout();
+
+            emit(LoginError(message: userFailure.message));
+
+            return;
+          }
+        }
+
+        if (userOptionCubit.state is UserOptionIsAdmin) {
+          final adminEither = await adminRepo.adminInfo();
+
+          if (adminEither.isLeft()) {
+            final adminFailure = adminEither.swap().getOrElse(
+                  () => const SystemFailure(),
+                );
+
+            await authRepo.logout();
+
+            emit(LoginError(message: adminFailure.message));
+
+            return;
+          }
         }
 
         emit(LoginSuccessful());

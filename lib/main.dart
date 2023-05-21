@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_food_ordering_app/firebase_options.dart';
 import 'package:flutter_food_ordering_app/src/core/injections/injections.dart';
+import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
 
 void main() async {
@@ -26,7 +28,21 @@ class MainApp extends StatelessWidget {
     return BlocProviderPage(
       child: MaterialApp(
         title: 'Order Me',
-        home: userStatus != null ? const AppPage() : const WelcomePage(),
+        home: userStatus != null
+            ? BlocBuilder<UserOptionCubit, UserOptionState>(
+                builder: (context, state) {
+                  if (state is UserOptionIsUser) {
+                    return const UserAppPage();
+                  }
+
+                  if (state is UserOptionIsAdmin) {
+                    return const AdminAppPage();
+                  }
+
+                  return const UserAppPage();
+                },
+              )
+            : const WelcomePage(),
       ),
     );
   }

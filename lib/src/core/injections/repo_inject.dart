@@ -10,8 +10,14 @@ void repoInit() {
     ),
   );
 
-  repoInject.registerLazySingleton<AppRepo>(
-    () => AppRepoImpl(
+  repoInject.registerLazySingleton<UserRepo>(
+    () => UserRepoImpl(
+      apiDataSource: repoInject(),
+    ),
+  );
+
+  repoInject.registerLazySingleton<AdminRepo>(
+    () => AdminRepoImpl(
       apiDataSource: repoInject(),
     ),
   );

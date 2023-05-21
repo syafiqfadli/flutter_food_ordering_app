@@ -37,103 +37,126 @@ class _LoginPageState extends State<LoginPage> {
           }
 
           if (state is LoginSuccessful) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const AppPage(),
-              ),
-            );
+            final optionState = context.read<UserOptionCubit>().state;
 
-            _emailController.clear();
-            _passwordController.clear();
+            if (optionState is UserOptionIsUser) {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const UserAppPage(),
+                ),
+                (route) => false,
+              );
+              _emailController.clear();
+              _passwordController.clear();
+            }
+
+            if (optionState is UserOptionIsAdmin) {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const AdminAppPage(),
+                ),
+                (route) => false,
+              );
+              _emailController.clear();
+              _passwordController.clear();
+            }
           }
         },
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 15),
-                    child: InputFieldWidget(
-                      label: 'Email',
-                      hint: 'Enter email',
-                      validate: _validator.emailValidation,
-                      isObscure: false,
-                      textController: _emailController,
-                      inputType: TextInputType.text,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 15),
-                    child: InputFieldWidget(
-                      label: 'Password',
-                      hint: 'Enter password',
-                      validate: _validator.passwordValidation,
-                      isObscure: true,
-                      textController: _passwordController,
-                      inputType: TextInputType.text,
-                    ),
-                  ),
-                  BlocSelector<LoginCubit, LoginState, bool>(
-                    selector: (state) {
-                      if (state is LoginLoading) {
-                        return true;
-                      }
-                      return false;
-                    },
-                    builder: (context, isLoading) {
-                      if (isLoading) {
-                        return const Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: AppColor.primaryColor,
-                            ),
-                          ),
-                        );
-                      }
-                      return ElevatedButton(
-                        onPressed: _login,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColor.primaryColor,
-                          fixedSize: Size(width, 40),
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(bottom: 30),
+              child: UserOption(),
+            ),
+            Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: InputFieldWidget(
+                          label: 'Email',
+                          hint: 'Enter email',
+                          validate: _validator.emailValidation,
+                          isObscure: false,
+                          textController: _emailController,
+                          inputType: TextInputType.text,
                         ),
-                        child: const Text('LOGIN'),
-                      );
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10, top: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Don't have an account?"),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const SignUpPage(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: InputFieldWidget(
+                          label: 'Password',
+                          hint: 'Enter password',
+                          validate: _validator.passwordValidation,
+                          isObscure: true,
+                          textController: _passwordController,
+                          inputType: TextInputType.text,
+                        ),
+                      ),
+                      BlocSelector<LoginCubit, LoginState, bool>(
+                        selector: (state) {
+                          if (state is LoginLoading) {
+                            return true;
+                          }
+                          return false;
+                        },
+                        builder: (context, isLoading) {
+                          if (isLoading) {
+                            return const Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColor.primaryColor,
+                                ),
                               ),
                             );
-                          },
-                          child: const Text(
-                            " Sign Up",
-                            style: TextStyle(
-                              color: AppColor.primaryColor,
-                              fontWeight: FontWeight.bold,
+                          }
+                          return ElevatedButton(
+                            onPressed: _login,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColor.primaryColor,
+                              fixedSize: Size(width, 40),
                             ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
+                            child: const Text('LOGIN'),
+                          );
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10, top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text("Don't have an account?"),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const SignUpPage(),
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                " Sign Up",
+                                style: TextStyle(
+                                  color: AppColor.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

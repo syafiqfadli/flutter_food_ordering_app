@@ -15,13 +15,14 @@ class _BlocProviderPageState extends State<BlocProviderPage> {
   final SignUpCubit _signUpCubit = blocInject<SignUpCubit>();
   final LoginCubit _loginCubit = blocInject<LoginCubit>();
   final LogoutCubit _logoutCubit = blocInject<LogoutCubit>();
-  final SetPageCubit _setPageCubit = blocInject<SetPageCubit>();
+  final SetPageUserCubit _setPageCubit = blocInject<SetPageUserCubit>();
   final ServerCubit _serverCubit = blocInject<ServerCubit>();
   final UserInfoCubit _userInfoCubit = blocInject<UserInfoCubit>();
   final HomeCubit _homeCubit = blocInject<HomeCubit>();
   final DeleteCartCubit _deleteCartCubit = blocInject<DeleteCartCubit>();
   final DeleteMenuCubit _deleteMenuCubit = blocInject<DeleteMenuCubit>();
   final AddToCartCubit _addToCartCubit = blocInject<AddToCartCubit>();
+  final UserOptionCubit _userOptionCubit = blocInject<UserOptionCubit>();
   final CheckoutOrderCubit _checkoutOrderCubit =
       blocInject<CheckoutOrderCubit>();
 
@@ -40,6 +41,7 @@ class _BlocProviderPageState extends State<BlocProviderPage> {
         BlocProvider.value(value: _addToCartCubit),
         BlocProvider.value(value: _deleteCartCubit),
         BlocProvider.value(value: _deleteMenuCubit),
+        BlocProvider.value(value: _userOptionCubit),
       ],
       child: widget.child,
     );

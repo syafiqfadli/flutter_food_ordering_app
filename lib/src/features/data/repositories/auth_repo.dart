@@ -6,6 +6,7 @@ import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
 
 abstract class AuthRepo {
   Future<Either<Failure, void>> signUp({
+    required bool isUser,
     required String name,
     required String email,
     required String password,
@@ -25,12 +26,14 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, void>> signUp({
+    required bool isUser,
     required String name,
     required String email,
     required String password,
   }) async {
     try {
-      final Uri url = Uri.parse(ApiUrl.createUser);
+      final Uri url =
+          isUser ? Uri.parse(ApiUrl.createUser) : Uri.parse(ApiUrl.createAdmin);
 
       await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
