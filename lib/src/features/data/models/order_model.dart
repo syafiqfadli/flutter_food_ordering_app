@@ -12,9 +12,9 @@ class OrderModel extends OrderEntity {
 
   factory OrderModel.fromJson(Map<String, dynamic> parseJson) {
     return OrderModel(
-      orderId: parseJson["orderId"],
-      restaurantId: parseJson["restaurantId"],
-      restaurantName: parseJson["restaurantName"],
+      orderId: parseJson["orderId"] ?? "",
+      restaurantId: parseJson["restaurantId"] ?? "",
+      restaurantName: parseJson["restaurantName"] ?? "",
       status: parseJson["status"],
       orderList: parseJson["orderList"] != null
           ? MenuModel.fromList(parseJson["orderList"])

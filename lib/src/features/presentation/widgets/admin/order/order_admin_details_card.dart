@@ -1,34 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
 
-class HomeCard extends StatelessWidget {
+class OrderAdminDetailsCard extends StatelessWidget {
   final int index;
-  final RestaurantEntity restaurant;
+  final MenuEntity menu;
 
-  const HomeCard({
-    super.key,
-    required this.index,
-    required this.restaurant,
-  });
+  const OrderAdminDetailsCard(
+      {super.key, required this.index, required this.menu});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => HomeDetailsPage(
-                index: index,
-                restaurantName: restaurant.restaurantName,
-                restaurantId: restaurant.restaurantId,
-              ),
-            ),
-          );
-        },
+      child: SizedBox(
+        height: 100,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -43,20 +29,37 @@ class HomeCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
               children: [
-                const Icon(Icons.restaurant),
+                Container(
+                  padding: const EdgeInsets.all(1),
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    color: AppColor.secondaryColor,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Center(
+                    child: Text('${index + 1}'),
+                  ),
+                ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 30,
-                    ),
+                    padding: const EdgeInsets.only(left: 20),
                     child: Text(
-                      restaurant.restaurantName,
-                      overflow: TextOverflow.ellipsis,
+                      menu.menuName,
                       style: const TextStyle(
-                        fontSize: 20,
+                        fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    'x${menu.quantity}',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),

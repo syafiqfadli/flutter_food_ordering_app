@@ -23,9 +23,9 @@ class InputValidator {
     return null;
   }
 
-  String? nameValidation(String? text) {
+  String? emptyValidation(String? text) {
     if (text!.isEmpty) {
-      return "Please enter name";
+      return "Please do not leave empty.";
     }
 
     return null;

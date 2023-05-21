@@ -4,14 +4,14 @@ import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.
 import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/widgets/widgets.dart';
 
-class OrderPage extends StatefulWidget {
-  const OrderPage({super.key});
+class OrderUserPage extends StatefulWidget {
+  const OrderUserPage({super.key});
 
   @override
-  State<OrderPage> createState() => _OrderPageState();
+  State<OrderUserPage> createState() => _OrderUserPageState();
 }
 
-class _OrderPageState extends State<OrderPage> {
+class _OrderUserPageState extends State<OrderUserPage> {
   @override
   Widget build(BuildContext context) {
     return BaseUserApp(
@@ -33,7 +33,7 @@ class _OrderPageState extends State<OrderPage> {
               }
               return ListView.builder(
                 itemCount: user.order.length,
-                itemBuilder: (context, index) => OrderCard(
+                itemBuilder: (context, index) => OrderUserCard(
                   order: _sortedOrder(user.order, index),
                   index: index,
                 ),

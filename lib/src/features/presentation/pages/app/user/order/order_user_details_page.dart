@@ -4,21 +4,21 @@ import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.
 import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/widgets/widgets.dart';
 
-class OrderDetailsPage extends StatefulWidget {
+class OrderUserDetailsPage extends StatefulWidget {
   final int index;
   final String restaurantName;
 
-  const OrderDetailsPage({
+  const OrderUserDetailsPage({
     super.key,
     required this.index,
     required this.restaurantName,
   });
 
   @override
-  State<OrderDetailsPage> createState() => _OrderDetailsPageState();
+  State<OrderUserDetailsPage> createState() => _OrderUserDetailsPageState();
 }
 
-class _OrderDetailsPageState extends State<OrderDetailsPage> {
+class _OrderUserDetailsPageState extends State<OrderUserDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return BaseUserApp(
@@ -38,7 +38,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                   Expanded(
                     child: ListView.builder(
                       itemCount: user.order[widget.index].orderList.length,
-                      itemBuilder: (context, index) => OrderDetailsCard(
+                      itemBuilder: (context, index) => OrderUserDetailsCard(
                         index: index,
                         menu: user.order[widget.index].orderList[index],
                       ),

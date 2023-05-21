@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
+import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/widgets/widgets.dart';
 
-class UserAppHeader extends StatefulWidget {
+class AdminAppHeader extends StatefulWidget {
   final String title;
   final bool isMainPage;
+  final RestaurantEntity? restaurant;
 
-  const UserAppHeader({
+  const AdminAppHeader({
     super.key,
     required this.title,
     required this.isMainPage,
+    this.restaurant,
   });
 
   @override
-  State<UserAppHeader> createState() => _UserAppHeaderState();
+  State<AdminAppHeader> createState() => _AdminAppHeaderState();
 }
 
-class _UserAppHeaderState extends State<UserAppHeader> {
+class _AdminAppHeaderState extends State<AdminAppHeader> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-
-    bool isMainPage = widget.isMainPage;
-    String title = widget.title;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
@@ -36,7 +35,7 @@ class _UserAppHeaderState extends State<UserAppHeader> {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              !isMainPage && title != "PAYMENT"
+              !widget.isMainPage
                   ? Align(
                       alignment: Alignment.centerLeft,
                       child: IconButton(
@@ -56,11 +55,11 @@ class _UserAppHeaderState extends State<UserAppHeader> {
                   width: width * 0.6,
                   child: Center(
                     child: Padding(
-                      padding: title == "PAYMENT"
+                      padding: widget.title != "RESTAURANT"
                           ? const EdgeInsets.symmetric(vertical: 10)
                           : const EdgeInsets.all(0),
                       child: Text(
-                        title,
+                        widget.title,
                         maxLines: 1,
                         style: const TextStyle(
                           fontSize: 24,
@@ -72,12 +71,17 @@ class _UserAppHeaderState extends State<UserAppHeader> {
                   ),
                 ),
               ),
-              isMainPage
+              (widget.title == "RESTAURANT" || widget.title == "MENU")
                   ? Align(
                       alignment: Alignment.centerRight,
                       child: IconButton(
-                        onPressed: _openCart,
-                        icon: const CartIcon(),
+                        onPressed: () {
+                          _addNavigator(widget.title);
+                        },
+                        icon: const Icon(
+                          Icons.add,
+                          color: AppColor.backgroundColor,
+                        ),
                       ),
                     )
                   : const SizedBox.shrink(),
@@ -88,15 +92,29 @@ class _UserAppHeaderState extends State<UserAppHeader> {
     );
   }
 
-  Future<void> _openCart() async {
-    await context.read<UserInfoCubit>().userInfo();
+  Future<void> _addNavigator(String title) async {
+    await context.read<AdminInfoCubit>().adminInfo();
 
     if (!mounted) return;
 
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const CartPage(),
-      ),
-    );
+    if (title == "RESTAURANT") {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const AddRestaurantPage(),
+        ),
+      );
+
+      return;
+    }
+
+    if (title == "MENU") {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => AddMenuPage(restaurant: widget.restaurant!),
+        ),
+      );
+
+      return;
+    }
   }
 }

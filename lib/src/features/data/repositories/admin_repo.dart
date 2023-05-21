@@ -8,6 +8,18 @@ import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.
 
 abstract class AdminRepo {
   Future<Either<Failure, AdminEntity>> adminInfo();
+  Future<Either<Failure, List<OrderEntity>>> orderStatus({
+    required String status,
+  });
+  Future<Either<Failure, void>> addRestaurant({
+    required String restaurantName,
+  });
+  Future<Either<Failure, void>> addMenu({
+    required String restaurantId,
+    required String menuName,
+    required String description,
+    required double price,
+  });
 }
 
 class AdminRepoImpl implements AdminRepo {
@@ -39,6 +51,99 @@ class AdminRepoImpl implements AdminRepo {
       final adminEntity = AdminModel.fromJson(adminJson.data);
 
       return Right(adminEntity);
+    } catch (e) {
+      return Left(SystemFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> addMenu({
+    required String restaurantId,
+    required String menuName,
+    required String description,
+    required double price,
+  }) async {
+    try {
+      final Uri url = Uri.parse(ApiUrl.addMenu);
+
+      final responseEither = await apiDataSource.patch(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: {
+          "restaurantId": restaurantId,
+          "menuName": menuName,
+          "description": description,
+          "price": price,
+        },
+      );
+
+      if (responseEither.isLeft()) {
+        final failure = responseEither.swap().getOrElse(
+              () => const SystemFailure(),
+            );
+        return Left(SystemFailure(message: failure.message));
+      }
+
+      return const Right(null);
+    } catch (e) {
+      return Left(SystemFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> addRestaurant({
+    required String restaurantName,
+  }) async {
+    try {
+      final String firebaseId = firebaseAuth.currentUser!.uid;
+      final Uri url = Uri.parse(ApiUrl.addRestaurant);
+
+      final responseEither = await apiDataSource.patch(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: {
+          "firebaseId": firebaseId,
+          "restaurantName": restaurantName,
+        },
+      );
+
+      if (responseEither.isLeft()) {
+        final failure = responseEither.swap().getOrElse(
+              () => const SystemFailure(),
+            );
+        return Left(SystemFailure(message: failure.message));
+      }
+
+      return const Right(null);
+    } catch (e) {
+      return Left(SystemFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<OrderEntity>>> orderStatus({
+    required String status,
+  }) async {
+    try {
+      final Uri url = Uri.parse("${ApiUrl.orderStatus}?status=$status");
+
+      final responseEither = await apiDataSource.get(
+        url,
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (responseEither.isLeft()) {
+        final failure = responseEither.swap().getOrElse(
+              () => const SystemFailure(),
+            );
+        return Left(SystemFailure(message: failure.message));
+      }
+
+      final orderJson = responseEither.getOrElse(() => ResponseEntity.empty);
+
+      final orderList = OrderModel.fromList(orderJson.data["order"]);
+
+      return Right(orderList);
     } catch (e) {
       return Left(SystemFailure(message: e.toString()));
     }

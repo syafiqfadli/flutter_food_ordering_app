@@ -19,6 +19,12 @@ class _LoginPageState extends State<LoginPage> {
   final _validator = InputValidator();
 
   @override
+  void initState() {
+    super.initState();
+    context.read<UserOptionCubit>().optionSelected(0);
+  }
+
+  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
@@ -62,17 +68,17 @@ class _LoginPageState extends State<LoginPage> {
             }
           }
         },
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(bottom: 30),
-              child: UserOption(),
-            ),
-            Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(bottom: 30),
+                child: UserOption(),
+              ),
+              Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -96,6 +102,9 @@ class _LoginPageState extends State<LoginPage> {
                           isObscure: true,
                           textController: _passwordController,
                           inputType: TextInputType.text,
+                          onFieldSubmitted: (_) {
+                            _login();
+                          },
                         ),
                       ),
                       BlocSelector<LoginCubit, LoginState, bool>(
@@ -155,8 +164,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

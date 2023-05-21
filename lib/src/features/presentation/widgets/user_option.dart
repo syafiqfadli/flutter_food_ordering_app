@@ -3,19 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
 
-class UserOption extends StatefulWidget {
+class UserOption extends StatelessWidget {
   const UserOption({super.key});
-
-  @override
-  State<UserOption> createState() => _UserOptionState();
-}
-
-class _UserOptionState extends State<UserOption> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<UserOptionCubit>().optionSelected(0);
-  }
 
   @override
   Widget build(BuildContext context) {

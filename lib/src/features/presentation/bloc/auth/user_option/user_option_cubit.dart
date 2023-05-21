@@ -17,4 +17,8 @@ class UserOptionCubit extends Cubit<UserOptionState> {
       return;
     }
   }
+
+  void resetOption() {
+    emit(UserOptionInitial());
+  }
 }

@@ -18,15 +18,21 @@ void main() async {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     final userStatus = FirebaseAuth.instance.currentUser;
 
     return BlocProviderPage(
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Order Me',
         home: userStatus != null
             ? BlocBuilder<UserOptionCubit, UserOptionState>(
@@ -39,7 +45,7 @@ class MainApp extends StatelessWidget {
                     return const AdminAppPage();
                   }
 
-                  return const UserAppPage();
+                  return const WelcomePage();
                 },
               )
             : const WelcomePage(),

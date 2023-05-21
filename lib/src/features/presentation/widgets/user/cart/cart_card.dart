@@ -45,7 +45,7 @@ class _CartCardState extends State<CartCard> {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
               children: [
-                const Icon(Icons.shopping_bag_rounded),
+                const Icon(Icons.restaurant),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(

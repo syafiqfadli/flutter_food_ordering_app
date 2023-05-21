@@ -20,6 +20,12 @@ class _SignUpPageState extends State<SignUpPage> {
   final _validator = InputValidator();
 
   @override
+  void initState() {
+    super.initState();
+    context.read<UserOptionCubit>().optionSelected(0);
+  }
+
+  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
@@ -75,7 +81,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: InputFieldWidget(
                           label: 'Name',
                           hint: 'Enter name',
-                          validate: _validator.nameValidation,
+                          validate: _validator.emptyValidation,
                           isObscure: false,
                           textController: _nameController,
                           inputType: TextInputType.text,
@@ -101,6 +107,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           isObscure: true,
                           textController: _passwordController,
                           inputType: TextInputType.text,
+                          onFieldSubmitted: (_) {
+                            _signup();
+                          },
                         ),
                       ),
                       BlocSelector<SignUpCubit, SignUpState, bool>(

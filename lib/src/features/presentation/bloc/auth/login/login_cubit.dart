@@ -43,20 +43,6 @@ class LoginCubit extends Cubit<LoginState> {
         emit(LoginError(message: failure.message));
       },
       (_) async {
-        final restaurantEither = await userRepo.restaurantList();
-
-        if (restaurantEither.isLeft()) {
-          final resFailure = restaurantEither.swap().getOrElse(
-                () => const SystemFailure(),
-              );
-
-          await authRepo.logout();
-
-          emit(LoginError(message: resFailure.message));
-
-          return;
-        }
-
         if (userOptionCubit.state is UserOptionIsUser) {
           final userEither = await userRepo.userInfo();
 
@@ -68,6 +54,20 @@ class LoginCubit extends Cubit<LoginState> {
             await authRepo.logout();
 
             emit(LoginError(message: userFailure.message));
+
+            return;
+          }
+
+          final restaurantEither = await userRepo.restaurantList();
+
+          if (restaurantEither.isLeft()) {
+            final resFailure = restaurantEither.swap().getOrElse(
+                  () => const SystemFailure(),
+                );
+
+            await authRepo.logout();
+
+            emit(LoginError(message: resFailure.message));
 
             return;
           }

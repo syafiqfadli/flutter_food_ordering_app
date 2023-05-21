@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
 
-class OrderDetailsCard extends StatelessWidget {
+class RestaurantDetailsCard extends StatelessWidget {
   final int index;
-  final MenuEntity menu;
+  final RestaurantEntity restaurant;
 
-  const OrderDetailsCard({super.key, required this.index, required this.menu});
+  const RestaurantDetailsCard({
+    super.key,
+    required this.index,
+    required this.restaurant,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,21 +48,11 @@ class OrderDetailsCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Text(
-                      menu.menuName,
+                      restaurant.restaurantName,
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    'x${menu.quantity}',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),

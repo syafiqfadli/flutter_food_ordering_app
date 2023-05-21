@@ -77,6 +77,8 @@ class AuthRepoImpl implements AuthRepo {
     required String password,
   }) async {
     try {
+      await logout();
+
       await firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,

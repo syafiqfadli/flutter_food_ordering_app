@@ -6,14 +6,14 @@ import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.da
 import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/widgets/widgets.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class UserProfilePage extends StatefulWidget {
+  const UserProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<UserProfilePage> createState() => _UserProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _UserProfilePageState extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -126,6 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (!mounted) return;
 
     context.read<SetPageUserCubit>().setIndex(0);
+    context.read<UserOptionCubit>().resetOption();
 
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(

@@ -3,11 +3,11 @@ import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
 
-class OrderCard extends StatelessWidget {
+class OrderUserCard extends StatelessWidget {
   final int index;
   final OrderEntity order;
 
-  const OrderCard({
+  const OrderUserCard({
     super.key,
     required this.index,
     required this.order,
@@ -23,7 +23,7 @@ class OrderCard extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => OrderDetailsPage(
+                builder: (context) => OrderUserDetailsPage(
                   index: index,
                   restaurantName: order.restaurantName,
                 ),

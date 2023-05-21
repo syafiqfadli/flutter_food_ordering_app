@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
+import 'package:flutter_food_ordering_app/src/features/presentation/bloc/auth/auth.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -45,5 +47,6 @@ class WelcomePage extends StatelessWidget {
 }
 
 void _pageNavigator(BuildContext context, {required Widget page}) {
+  context.read<UserOptionCubit>().optionSelected(0);
   Navigator.of(context).push(MaterialPageRoute(builder: (context) => page));
 }

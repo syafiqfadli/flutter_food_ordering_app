@@ -17,7 +17,32 @@ void blocInit() {
   );
 
   blocInject.registerLazySingleton<AdminInfoCubit>(
-    () => AdminInfoCubit(adminRepo: blocInject()),
+    () => AdminInfoCubit(
+      adminRepo: blocInject(),
+      inKitchenCubit: blocInject(),
+      deliveryCubit: blocInject(),
+      completedCubit: blocInject(),
+    ),
+  );
+
+  blocInject.registerLazySingleton<InKitchenCubit>(
+    () => InKitchenCubit(adminRepo: blocInject()),
+  );
+
+  blocInject.registerLazySingleton<DeliveryCubit>(
+    () => DeliveryCubit(adminRepo: blocInject()),
+  );
+
+  blocInject.registerLazySingleton<CompletedCubit>(
+    () => CompletedCubit(adminRepo: blocInject()),
+  );
+
+  blocInject.registerLazySingleton<AddMenuCubit>(
+    () => AddMenuCubit(adminRepo: blocInject()),
+  );
+
+  blocInject.registerLazySingleton<AddRestaurantCubit>(
+    () => AddRestaurantCubit(adminRepo: blocInject()),
   );
 
   blocInject.registerLazySingleton<CheckoutOrderCubit>(
@@ -66,6 +91,10 @@ void blocInit() {
 
   blocInject.registerLazySingleton<SetPageUserCubit>(
     () => SetPageUserCubit(),
+  );
+
+  blocInject.registerLazySingleton<SetPageAdminCubit>(
+    () => SetPageAdminCubit(),
   );
 
   blocInject.registerLazySingleton<ServerCubit>(

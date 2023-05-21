@@ -12,6 +12,7 @@ class InputFieldWidget extends StatelessWidget {
   final String? hint;
   final String? Function(String?)? validate;
   final void Function(String?)? onChanged;
+  final void Function(String?)? onFieldSubmitted;
 
   const InputFieldWidget({
     Key? key,
@@ -25,6 +26,7 @@ class InputFieldWidget extends StatelessWidget {
     this.hint,
     this.validate,
     this.onChanged,
+    this.onFieldSubmitted,
   }) : super(key: key);
 
   @override
@@ -36,6 +38,7 @@ class InputFieldWidget extends StatelessWidget {
       obscureText: isObscure,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       onChanged: onChanged,
+      onFieldSubmitted: onFieldSubmitted,
       validator: validate,
       keyboardType: inputType,
       style: TextStyle(color: textColor),

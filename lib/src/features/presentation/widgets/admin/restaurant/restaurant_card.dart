@@ -3,11 +3,11 @@ import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
 
-class HomeCard extends StatelessWidget {
+class RestaurantCard extends StatelessWidget {
   final int index;
   final RestaurantEntity restaurant;
 
-  const HomeCard({
+  const RestaurantCard({
     super.key,
     required this.index,
     required this.restaurant,
@@ -17,18 +17,8 @@ class HomeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => HomeDetailsPage(
-                index: index,
-                restaurantName: restaurant.restaurantName,
-                restaurantId: restaurant.restaurantId,
-              ),
-            ),
-          );
-        },
+      child: SizedBox(
+        height: 120,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -42,14 +32,26 @@ class HomeCard extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Icon(Icons.restaurant),
+                Container(
+                  padding: const EdgeInsets.all(1),
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: AppColor.secondaryColor,
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '${index + 1}',
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 30,
-                    ),
+                    padding: const EdgeInsets.only(left: 20),
                     child: Text(
                       restaurant.restaurantName,
                       overflow: TextOverflow.ellipsis,
@@ -60,6 +62,22 @@ class HomeCard extends StatelessWidget {
                     ),
                   ),
                 ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.primaryColor,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => RestaurantDetailsPage(
+                          index: index,
+                          restaurant: restaurant,
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text('View'),
+                )
               ],
             ),
           ),

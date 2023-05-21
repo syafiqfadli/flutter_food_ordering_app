@@ -18,9 +18,9 @@ class _UserAppPageState extends State<UserAppPage> {
 
   final pages = [
     const HomePage(),
-    const OrderPage(),
+    const OrderUserPage(),
     const HistoryPage(),
-    const ProfilePage(),
+    const UserProfilePage(),
   ];
 
   @override
