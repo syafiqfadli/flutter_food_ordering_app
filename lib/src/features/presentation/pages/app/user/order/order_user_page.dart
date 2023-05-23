@@ -34,7 +34,7 @@ class _OrderUserPageState extends State<OrderUserPage> {
               return ListView.builder(
                 itemCount: user.order.length,
                 itemBuilder: (context, index) => OrderUserCard(
-                  order: _sortedOrder(user.order, index),
+                  order: user.order[index],
                   index: index,
                 ),
               );
@@ -47,9 +47,5 @@ class _OrderUserPageState extends State<OrderUserPage> {
 
   Future<void> _onRefresh() async {
     await context.read<UserInfoCubit>().userInfo();
-  }
-
-  OrderEntity _sortedOrder(List<OrderEntity> orderList, int index) {
-    return List<OrderEntity>.from(orderList.reversed)[index];
   }
 }

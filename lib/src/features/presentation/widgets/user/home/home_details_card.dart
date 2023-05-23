@@ -7,14 +7,12 @@ import 'package:flutter_food_ordering_app/src/features/presentation/widgets/widg
 
 class HomeDetailsCard extends StatefulWidget {
   final MenuEntity menu;
-  final String restaurantId;
-  final String restaurantName;
+  final RestaurantEntity restaurant;
 
   const HomeDetailsCard({
     super.key,
     required this.menu,
-    required this.restaurantId,
-    required this.restaurantName,
+    required this.restaurant,
   });
 
   @override
@@ -83,8 +81,8 @@ class _HomeDetailsCardState extends State<HomeDetailsCard> {
                       onPressed: () {
                         _addToCart(
                           width: width,
-                          restaurantId: widget.restaurantId,
-                          restaurantName: widget.restaurantName,
+                          restaurantId: widget.restaurant.restaurantId,
+                          restaurantName: widget.restaurant.restaurantName,
                           menuId: widget.menu.menuId,
                           menuName: widget.menu.menuName,
                           price: widget.menu.price,

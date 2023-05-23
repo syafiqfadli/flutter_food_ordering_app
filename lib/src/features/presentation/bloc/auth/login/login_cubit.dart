@@ -57,20 +57,6 @@ class LoginCubit extends Cubit<LoginState> {
 
             return;
           }
-
-          final restaurantEither = await userRepo.restaurantList();
-
-          if (restaurantEither.isLeft()) {
-            final resFailure = restaurantEither.swap().getOrElse(
-                  () => const SystemFailure(),
-                );
-
-            await authRepo.logout();
-
-            emit(LoginError(message: resFailure.message));
-
-            return;
-          }
         }
 
         if (userOptionCubit.state is UserOptionIsAdmin) {

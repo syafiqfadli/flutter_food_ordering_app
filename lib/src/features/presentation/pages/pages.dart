@@ -19,5 +19,4 @@ export 'app/admin/restaurant/restaurant_page.dart';
 export 'app/admin/restaurant/add_restaurant_page.dart';
 export 'app/admin/restaurant/add_menu_page.dart';
 export 'app/admin/restaurant/restaurant_details_page.dart';
-export 'app/admin/order/order_admin_page.dart';
 export 'app/admin/order/order_admin_details_page.dart';

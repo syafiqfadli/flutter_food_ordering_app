@@ -5,6 +5,7 @@ class OrderEntity extends Equatable {
   final String orderId;
   final String restaurantId;
   final String restaurantName;
+  final String customerName;
   final String status;
   final List<MenuEntity> orderList;
 
@@ -12,6 +13,7 @@ class OrderEntity extends Equatable {
     required this.orderId,
     required this.restaurantId,
     required this.restaurantName,
+    required this.customerName,
     required this.status,
     required this.orderList,
   });
@@ -21,6 +23,7 @@ class OrderEntity extends Equatable {
         orderId,
         restaurantId,
         restaurantName,
+        customerName,
         status,
         orderList,
       ];

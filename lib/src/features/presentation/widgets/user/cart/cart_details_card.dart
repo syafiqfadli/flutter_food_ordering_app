@@ -5,17 +5,17 @@ import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
 
 class CartDetailsCard extends StatefulWidget {
-  final int cartIndex;
   final int menuIndex;
   final CartEntity cart;
   final MenuEntity menu;
+  final List<MenuEntity> menuList;
 
   const CartDetailsCard({
     super.key,
-    required this.cartIndex,
     required this.menuIndex,
     required this.cart,
     required this.menu,
+    required this.menuList,
   });
 
   @override
@@ -23,6 +23,8 @@ class CartDetailsCard extends StatefulWidget {
 }
 
 class _CartDetailsCardState extends State<CartDetailsCard> {
+  bool isClicked = false;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -93,20 +95,25 @@ class _CartDetailsCardState extends State<CartDetailsCard> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    _deleteMenu(
-                      cartIndex: widget.cartIndex,
-                      cartId: widget.cart.cartId,
-                      menuId: widget.menu.menuId,
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                    size: 35,
-                  ),
-                )
+                isClicked
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColor.primaryColor,
+                        ),
+                      )
+                    : IconButton(
+                        onPressed: () {
+                          _deleteMenu(
+                            cartId: widget.cart.cartId,
+                            menuId: widget.menu.menuId,
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                          size: 35,
+                        ),
+                      ),
               ],
             ),
           ),
@@ -116,13 +123,30 @@ class _CartDetailsCardState extends State<CartDetailsCard> {
   }
 
   Future<void> _deleteMenu({
-    required int cartIndex,
     required String cartId,
     required String menuId,
   }) async {
+    setState(() {
+      isClicked = true;
+    });
+
+    if (widget.menuList.length == 1) {
+      Navigator.pop(context);
+      context.read<DeleteCartCubit>().deleteCart(cartId: cartId);
+      setState(() {
+        isClicked = false;
+      });
+
+      return;
+    }
+
     await context.read<DeleteMenuCubit>().deleteMenu(
           cartId: cartId,
           menuId: menuId,
         );
+
+    setState(() {
+      isClicked = false;
+    });
   }
 }

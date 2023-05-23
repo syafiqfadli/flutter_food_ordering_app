@@ -5,7 +5,12 @@ final blocInject = GetIt.instance;
 
 void blocInit() {
   blocInject.registerLazySingleton<UserOptionCubit>(
-    () => UserOptionCubit(),
+    () => UserOptionCubit(
+      authRepo: blocInject(),
+      userRepo: blocInject(),
+      adminRepo: blocInject(),
+      serverCubit: blocInject(),
+    ),
   );
 
   blocInject.registerLazySingleton<HomeCubit>(
@@ -16,13 +21,12 @@ void blocInit() {
     () => UserInfoCubit(userRepo: blocInject()),
   );
 
+  blocInject.registerLazySingleton<CompleteOrderCubit>(
+    () => CompleteOrderCubit(userRepo: blocInject()),
+  );
+
   blocInject.registerLazySingleton<AdminInfoCubit>(
-    () => AdminInfoCubit(
-      adminRepo: blocInject(),
-      inKitchenCubit: blocInject(),
-      deliveryCubit: blocInject(),
-      completedCubit: blocInject(),
-    ),
+    () => AdminInfoCubit(adminRepo: blocInject()),
   );
 
   blocInject.registerLazySingleton<InKitchenCubit>(
@@ -45,6 +49,10 @@ void blocInit() {
     () => AddRestaurantCubit(adminRepo: blocInject()),
   );
 
+  blocInject.registerLazySingleton<UpdateStatusCubit>(
+    () => UpdateStatusCubit(adminRepo: blocInject()),
+  );
+
   blocInject.registerLazySingleton<CheckoutOrderCubit>(
     () => CheckoutOrderCubit(userRepo: blocInject()),
   );
@@ -61,10 +69,7 @@ void blocInit() {
   );
 
   blocInject.registerLazySingleton<DeleteMenuCubit>(
-    () => DeleteMenuCubit(
-      userRepo: blocInject(),
-      userInfoCubit: blocInject(),
-    ),
+    () => DeleteMenuCubit(userRepo: blocInject()),
   );
 
   blocInject.registerLazySingleton<LoginCubit>(

@@ -45,7 +45,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         ),
                         Center(
                           child: Text(
-                            user.name,
+                            user.name.toTitleCase(),
                             style: const TextStyle(
                               fontSize: 26,
                               fontWeight: FontWeight.w500,
@@ -120,20 +120,17 @@ class _UserProfilePageState extends State<UserProfilePage> {
     );
   }
 
-  void _logout() async {
-    await context.read<LogoutCubit>().logout();
-
-    if (!mounted) return;
-
-    context.read<SetPageUserCubit>().setIndex(0);
-    context.read<UserOptionCubit>().resetOption();
-
+  void _logout() {
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
         builder: (context) => const WelcomePage(),
       ),
       (Route<dynamic> route) => false,
     );
+
+    context.read<LogoutCubit>().logout();
+    context.read<SetPageUserCubit>().setIndex(0);
+    context.read<UserOptionCubit>().resetOption();
   }
 
   Future<void> _onRefresh() async {

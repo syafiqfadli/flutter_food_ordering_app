@@ -18,14 +18,14 @@ class OrderUserCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: SizedBox(
-        height: 150,
+        height: 160,
         child: InkWell(
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => OrderUserDetailsPage(
                   index: index,
-                  restaurantName: order.restaurantName,
+                  order: order,
                 ),
               ),
             );
@@ -72,19 +72,41 @@ class OrderUserCard extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20),
                             child: Text(
-                              order.restaurantName,
+                              order.restaurantName.toTitleCase(),
                               style: const TextStyle(
-                                fontSize: 20,
+                                fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          Text(
-                            'Status: ${order.status}',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Row(
+                            children: [
+                              const Text(
+                                'Status: ',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: order.status == "In the kitchen"
+                                      ? Colors.red[200]
+                                      : order.status == "Out of delivery"
+                                          ? Colors.yellow[200]
+                                          : Colors.green[400],
+                                ),
+                                child: Text(
+                                  order.status,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

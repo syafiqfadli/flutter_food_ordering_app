@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
+import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/widgets/widgets.dart';
 
 class HomeDetailsPage extends StatefulWidget {
   final int index;
-  final String restaurantId;
-  final String restaurantName;
+  final RestaurantEntity restaurant;
 
   const HomeDetailsPage({
     super.key,
     required this.index,
-    required this.restaurantId,
-    required this.restaurantName,
+    required this.restaurant,
   });
 
   @override
@@ -26,7 +25,7 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
     double width = MediaQuery.of(context).size.width;
 
     return BaseUserApp(
-      title: widget.restaurantName.toUpperCase(),
+      title: widget.restaurant.restaurantName.toUpperCase(),
       isMainPage: false,
       child: BlocListener<AddToCartCubit, AddToCartState>(
         listener: (context, state) async {
@@ -52,90 +51,26 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
           }
         },
         child: Expanded(
-          child: CustomRefresh(
-            onRefresh: _onRefresh,
-            child: BlocBuilder<HomeCubit, HomeState>(
-              builder: (context, state) {
-                if (state is HomeLoaded) {
-                  final menuList = state.restaurantList[widget.index].menuList;
-
-                  if (menuList.isEmpty) {
-                    return ListView(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20),
-                          child: Center(
-                            child: Text("No menu yet."),
-                          ),
-                        ),
-                      ],
-                    );
-                  }
-
-                  return GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
-                    itemCount: menuList.length,
-                    itemBuilder: (context, index) => HomeDetailsCard(
-                      menu: menuList[index],
-                      restaurantName: widget.restaurantName,
-                      restaurantId: widget.restaurantId,
-                    ),
-                  );
-                }
-
-                if (state is HomeSearched) {
-                  final menuList =
-                      state.searchedRestaurant[widget.index].menuList;
-
-                  if (menuList.isEmpty) {
-                    return ListView(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20),
-                          child: Center(
-                            child: Text("No menu yet."),
-                          ),
-                        ),
-                      ],
-                    );
-                  }
-
-                  return GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
-                    itemCount: menuList.length,
-                    itemBuilder: (context, index) => HomeDetailsCard(
-                      menu: menuList[index],
-                      restaurantName: widget.restaurantName,
-                      restaurantId: widget.restaurantId,
-                    ),
-                  );
-                }
-
-                return ListView(
+          child: widget.restaurant.menuList.isNotEmpty
+              ? GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemCount: widget.restaurant.menuList.length,
+                  itemBuilder: (context, index) => HomeDetailsCard(
+                    menu: widget.restaurant.menuList[index],
+                    restaurant: widget.restaurant,
+                  ),
+                )
+              : ListView(
                   children: const [
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 20),
-                      child: Center(
-                        child: Text("No menu yet."),
-                      ),
+                    Center(
+                      child: Text("No menu yet."),
                     ),
                   ],
-                );
-              },
-            ),
-          ),
+                ),
         ),
       ),
     );
-  }
-
-  Future<void> _onRefresh() async {
-    await context.read<HomeCubit>().homeDefault();
   }
 }

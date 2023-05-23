@@ -1,10 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_food_ordering_app/firebase_options.dart';
 import 'package:flutter_food_ordering_app/src/core/injections/injections.dart';
+import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
 
@@ -26,29 +26,47 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  late UserOptionCubit userOptionCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    userOptionCubit = blocInject<UserOptionCubit>()..appRefreshed();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final userStatus = FirebaseAuth.instance.currentUser;
-
     return BlocProviderPage(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Order Me',
-        home: userStatus != null
-            ? BlocBuilder<UserOptionCubit, UserOptionState>(
-                builder: (context, state) {
-                  if (state is UserOptionIsUser) {
-                    return const UserAppPage();
-                  }
+        home: BlocBuilder<UserOptionCubit, UserOptionState>(
+          builder: (context, state) {
+            if (state is UserOptionIsUser) {
+              return const UserAppPage();
+            }
 
-                  if (state is UserOptionIsAdmin) {
-                    return const AdminAppPage();
-                  }
+            if (state is UserOptionIsAdmin) {
+              return const AdminAppPage();
+            }
 
-                  return const WelcomePage();
-                },
-              )
-            : const WelcomePage(),
+            if (state is UserOptionInitial) {
+              return const WelcomePage();
+            }
+
+            return const Scaffold(
+              backgroundColor: AppColor.primaryColor,
+              body: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: AppColor.secondaryColor,
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

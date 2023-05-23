@@ -24,12 +24,15 @@ class _BlocProviderPageState extends State<BlocProviderPage> {
   final DeleteCartCubit _deleteCartCubit = blocInject<DeleteCartCubit>();
   final DeleteMenuCubit _deleteMenuCubit = blocInject<DeleteMenuCubit>();
   final AddToCartCubit _addToCartCubit = blocInject<AddToCartCubit>();
+  final CompleteOrderCubit _completeOrderCubit =
+      blocInject<CompleteOrderCubit>();
   final CheckoutOrderCubit _checkoutOrderCubit =
       blocInject<CheckoutOrderCubit>();
   final AdminInfoCubit _adminInfoCubit = blocInject<AdminInfoCubit>();
   final InKitchenCubit _inKitchenCubit = blocInject<InKitchenCubit>();
   final DeliveryCubit _deliveryCubit = blocInject<DeliveryCubit>();
   final CompletedCubit _completedCubit = blocInject<CompletedCubit>();
+  final UpdateStatusCubit _updateStatusCubit = blocInject<UpdateStatusCubit>();
   final AddMenuCubit _addMenuCubit = blocInject<AddMenuCubit>();
   final AddRestaurantCubit _addRestaurantCubit =
       blocInject<AddRestaurantCubit>();
@@ -50,11 +53,13 @@ class _BlocProviderPageState extends State<BlocProviderPage> {
         BlocProvider.value(value: _deleteCartCubit),
         BlocProvider.value(value: _deleteMenuCubit),
         BlocProvider.value(value: _addToCartCubit),
+        BlocProvider.value(value: _completeOrderCubit),
         BlocProvider.value(value: _checkoutOrderCubit),
         BlocProvider.value(value: _adminInfoCubit),
         BlocProvider.value(value: _inKitchenCubit),
         BlocProvider.value(value: _deliveryCubit),
         BlocProvider.value(value: _completedCubit),
+        BlocProvider.value(value: _updateStatusCubit),
         BlocProvider.value(value: _addMenuCubit),
         BlocProvider.value(value: _addRestaurantCubit),
       ],

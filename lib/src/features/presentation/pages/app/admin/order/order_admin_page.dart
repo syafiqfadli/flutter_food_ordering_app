@@ -34,7 +34,7 @@ class _OrderAdminPageState extends State<OrderAdminPage> {
               return ListView.builder(
                 itemCount: admin.order.length,
                 itemBuilder: (context, index) => OrderAdminCard(
-                  order: _sortedOrder(admin.order, index),
+                  order: admin.order[index],
                   index: index,
                 ),
               );
@@ -47,9 +47,5 @@ class _OrderAdminPageState extends State<OrderAdminPage> {
 
   Future<void> _onRefresh() async {
     await context.read<AdminInfoCubit>().adminInfo();
-  }
-
-  OrderEntity _sortedOrder(List<OrderEntity> orderList, int index) {
-    return List<OrderEntity>.from(orderList.reversed)[index];
   }
 }

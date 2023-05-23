@@ -7,6 +7,8 @@ abstract class UserOptionState extends Equatable {
   List<Object> get props => [];
 }
 
+class UserOptionLoading extends UserOptionState {}
+
 class UserOptionInitial extends UserOptionState {}
 
 class UserOptionIsUser extends UserOptionState {}

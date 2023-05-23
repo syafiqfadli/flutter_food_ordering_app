@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_food_ordering_app/src/core/injections/injections.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
 import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
@@ -13,6 +14,14 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  late UserInfoCubit userInfoCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    userInfoCubit = blocInject<UserInfoCubit>()..userInfo();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -61,8 +70,8 @@ class _CartPageState extends State<CartPage> {
                 return ListView.builder(
                   itemCount: user.cart.length,
                   itemBuilder: (context, index) => CartCard(
-                    cart: user.cart[index],
                     cartIndex: index,
+                    cart: user.cart[index],
                   ),
                 );
               },

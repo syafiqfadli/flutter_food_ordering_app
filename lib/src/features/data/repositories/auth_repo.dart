@@ -61,8 +61,6 @@ class AuthRepoImpl implements AuthRepo {
         return Left(SystemFailure(message: failure.message));
       }
 
-      await logout();
-
       return const Right(null);
     } on FirebaseAuthException catch (error) {
       return Left(ServerFailure(message: error.message!));

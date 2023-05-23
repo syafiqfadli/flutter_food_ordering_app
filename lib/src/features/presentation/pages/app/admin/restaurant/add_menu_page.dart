@@ -69,7 +69,7 @@ class _AddMenuPageState extends State<AddMenuPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: InputFieldWidget(
-                      label: 'Description',
+                      label: 'Nutritional info',
                       hint: 'Enter description',
                       textController: _descriptionController,
                       inputType: TextInputType.text,
@@ -96,7 +96,7 @@ class _AddMenuPageState extends State<AddMenuPage> {
                     builder: (context, isLoading) {
                       if (isLoading) {
                         return const Padding(
-                          padding: EdgeInsets.all(10.0),
+                          padding: EdgeInsets.symmetric(vertical: 20),
                           child: Center(
                             child: CircularProgressIndicator(
                               color: AppColor.primaryColor,

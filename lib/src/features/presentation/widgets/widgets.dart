@@ -13,6 +13,7 @@ export 'user/order/order_user_details_card.dart';
 export 'user/home/home_card.dart';
 export 'user/home/home_details_card.dart';
 export 'user/home/input_quantity.dart';
+export 'user/history_card.dart';
 export 'admin/base/admin_app_header.dart';
 export 'admin/base/base_admin_app.dart';
 export 'admin/restaurant/restaurant_card.dart';

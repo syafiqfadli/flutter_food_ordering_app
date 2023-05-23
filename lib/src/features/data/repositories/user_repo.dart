@@ -10,6 +10,7 @@ abstract class UserRepo {
   Future<Either<Failure, UserEntity>> userInfo();
   Future<Either<Failure, List<RestaurantEntity>>> restaurantList();
   Future<Either<Failure, void>> deleteCart({required String cartId});
+  Future<Either<Failure, void>> completeOrder({required String orderId});
   Future<Either<Failure, void>> deleteMenu({
     required String cartId,
     required String menuId,
@@ -240,6 +241,33 @@ class UserRepoImpl implements UserRepo {
         body: {
           "cartId": cartId,
           "menuId": menuId,
+        },
+      );
+
+      if (responseEither.isLeft()) {
+        final failure = responseEither.swap().getOrElse(
+              () => const SystemFailure(),
+            );
+
+        return Left(SystemFailure(message: failure.message));
+      }
+
+      return const Right(null);
+    } catch (e) {
+      return Left(SystemFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> completeOrder({required String orderId}) async {
+    try {
+      final Uri url = Uri.parse(ApiUrl.completeOrder);
+
+      final responseEither = await apiDataSource.patch(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: {
+          "orderId": orderId,
         },
       );
 

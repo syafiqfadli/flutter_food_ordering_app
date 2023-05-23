@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
 import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
 
 class AdminAppHeader extends StatefulWidget {
@@ -92,11 +90,7 @@ class _AdminAppHeaderState extends State<AdminAppHeader> {
     );
   }
 
-  Future<void> _addNavigator(String title) async {
-    await context.read<AdminInfoCubit>().adminInfo();
-
-    if (!mounted) return;
-
+  void _addNavigator(String title) {
     if (title == "RESTAURANT") {
       Navigator.of(context).push(
         MaterialPageRoute(

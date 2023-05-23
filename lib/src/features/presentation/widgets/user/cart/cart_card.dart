@@ -9,13 +9,15 @@ class CartCard extends StatefulWidget {
   final int cartIndex;
   final CartEntity cart;
 
-  const CartCard({super.key, required this.cartIndex, required this.cart});
+  const CartCard({super.key, required this.cart, required this.cartIndex});
 
   @override
   State<CartCard> createState() => _CartCardState();
 }
 
 class _CartCardState extends State<CartCard> {
+  bool isClicked = false;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -75,16 +77,22 @@ class _CartCardState extends State<CartCard> {
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    _deleteCart(cartId: widget.cart.cartId);
-                  },
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                    size: 35,
-                  ),
-                )
+                isClicked
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColor.primaryColor,
+                        ),
+                      )
+                    : IconButton(
+                        onPressed: () {
+                          _deleteCart(cartId: widget.cart.cartId);
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                          size: 35,
+                        ),
+                      ),
               ],
             ),
           ),
@@ -94,6 +102,14 @@ class _CartCardState extends State<CartCard> {
   }
 
   Future<void> _deleteCart({required String cartId}) async {
+    setState(() {
+      isClicked = true;
+    });
+
     await context.read<DeleteCartCubit>().deleteCart(cartId: cartId);
+
+    setState(() {
+      isClicked = false;
+    });
   }
 }

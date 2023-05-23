@@ -11,6 +11,9 @@ abstract class AdminRepo {
   Future<Either<Failure, List<OrderEntity>>> orderStatus({
     required String status,
   });
+  Future<Either<Failure, void>> updateStatus({
+    required String orderId,
+  });
   Future<Either<Failure, void>> addRestaurant({
     required String restaurantName,
   });
@@ -125,7 +128,9 @@ class AdminRepoImpl implements AdminRepo {
     required String status,
   }) async {
     try {
-      final Uri url = Uri.parse("${ApiUrl.orderStatus}?status=$status");
+      final String firebaseId = firebaseAuth.currentUser!.uid;
+      final Uri url = Uri.parse(
+          "${ApiUrl.orderStatus}?status=$status&firebaseId=$firebaseId");
 
       final responseEither = await apiDataSource.get(
         url,
@@ -144,6 +149,32 @@ class AdminRepoImpl implements AdminRepo {
       final orderList = OrderModel.fromList(orderJson.data["order"]);
 
       return Right(orderList);
+    } catch (e) {
+      return Left(SystemFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateStatus({required String orderId}) async {
+    try {
+      final Uri url = Uri.parse(ApiUrl.updateStatus);
+
+      final responseEither = await apiDataSource.patch(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: {
+          "orderId": orderId,
+        },
+      );
+
+      if (responseEither.isLeft()) {
+        final failure = responseEither.swap().getOrElse(
+              () => const SystemFailure(),
+            );
+        return Left(SystemFailure(message: failure.message));
+      }
+
+      return const Right(null);
     } catch (e) {
       return Left(SystemFailure(message: e.toString()));
     }

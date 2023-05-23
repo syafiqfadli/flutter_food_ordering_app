@@ -72,7 +72,8 @@ class _InputQuantityState extends State<InputQuantity> {
           onTap: () {
             int quantity = int.parse(widget.quantityController.text);
 
-            widget.quantityController.text = "${quantity + 1}";
+            widget.quantityController.text =
+                (quantity < 10) ? "${quantity + 1}" : "10";
           },
         ),
       ],

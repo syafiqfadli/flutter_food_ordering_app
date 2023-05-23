@@ -23,7 +23,11 @@ class ServerRepoImpl implements ServerRepo {
       );
 
       if (responseEither.isLeft()) {
-        return const Left(ServerFailure(message: "Server offline."));
+        final failure = responseEither.swap().getOrElse(
+              () => const SystemFailure(),
+            );
+
+        return Left(SystemFailure(message: failure.message));
       }
 
       return const Right(null);

@@ -15,15 +15,30 @@ class WelcomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                _pageNavigator(context, page: const SignUpPage());
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColor.secondaryColor,
-                fixedSize: const Size(190, 40),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 70),
+              child: Image.asset(
+                "assets/images/order-me-logo.png",
+                height: 200,
               ),
-              child: const Text("SIGN UP"),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: ElevatedButton(
+                onPressed: () {
+                  _pageNavigator(context, page: const SignUpPage());
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColor.secondaryColor,
+                  fixedSize: const Size(200, 50),
+                ),
+                child: const Text(
+                  "SIGN UP",
+                  style: TextStyle(
+                    color: AppColor.primaryColor,
+                  ),
+                ),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
@@ -35,7 +50,7 @@ class WelcomePage extends StatelessWidget {
                   color: AppColor.secondaryColor,
                   width: 0.7,
                 ),
-                fixedSize: const Size(190, 40),
+                fixedSize: const Size(200, 50),
               ),
               child: const Text("LOG IN"),
             ),

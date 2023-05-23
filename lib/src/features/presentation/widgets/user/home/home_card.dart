@@ -23,8 +23,7 @@ class HomeCard extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => HomeDetailsPage(
                 index: index,
-                restaurantName: restaurant.restaurantName,
-                restaurantId: restaurant.restaurantId,
+                restaurant: restaurant,
               ),
             ),
           );

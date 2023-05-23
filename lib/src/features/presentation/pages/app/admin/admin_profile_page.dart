@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_food_ordering_app/src/core/injections/injections.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
 import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
@@ -14,6 +15,18 @@ class AdminProfilePage extends StatefulWidget {
 }
 
 class _AdminProfilePageState extends State<AdminProfilePage> {
+  late InKitchenCubit inKitchenCubit;
+  late DeliveryCubit deliveryCubit;
+  late CompletedCubit completedCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    inKitchenCubit = blocInject<InKitchenCubit>()..inKitchen();
+    deliveryCubit = blocInject<DeliveryCubit>()..outOfDelivery();
+    completedCubit = blocInject<CompletedCubit>()..completed();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -45,7 +58,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                         ),
                         Center(
                           child: Text(
-                            admin.name,
+                            admin.name.toTitleCase(),
                             style: const TextStyle(
                               fontSize: 26,
                               fontWeight: FontWeight.w500,
@@ -148,6 +161,10 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
   }
 
   Future<void> _onRefresh() async {
+    context.read<InKitchenCubit>().inKitchen();
+    context.read<DeliveryCubit>().outOfDelivery();
+    context.read<CompletedCubit>().completed();
+
     await context.read<AdminInfoCubit>().adminInfo();
   }
 }

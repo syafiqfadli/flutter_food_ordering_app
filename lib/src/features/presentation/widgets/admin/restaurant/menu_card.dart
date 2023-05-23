@@ -56,7 +56,7 @@ class MenuCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          menu.menuName,
+                          menu.menuName.toTitleCase(),
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 20,

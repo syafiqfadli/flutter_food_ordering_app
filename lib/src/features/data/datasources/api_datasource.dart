@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_food_ordering_app/src/core/errors/failures.dart';
@@ -41,7 +42,7 @@ class ApiDataSourceImpl implements ApiDataSource {
             headers: headers,
           )
           .timeout(
-            const Duration(seconds: 3),
+            const Duration(seconds: 10),
           );
 
       final response = ResponseModel.fromJson(jsonDecode(rawResponse.body));
@@ -51,10 +52,20 @@ class ApiDataSourceImpl implements ApiDataSource {
       }
 
       return Right(response);
+    } on SocketException catch (error) {
+      String message = "";
+
+      if (error.toString() == "Connection failed") {
+        message = "Please check your internet connection.";
+      }
+
+      if (error.toString() == "Connection refused") {
+        message = "Server offline.";
+      }
+
+      return Left(ServerFailure(message: message));
     } on TimeoutException catch (timeout) {
       return Left(ServerFailure(message: timeout.toString()));
-    } catch (error) {
-      return Left(ServerFailure(message: error.toString()));
     }
   }
 

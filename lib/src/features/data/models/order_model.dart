@@ -6,6 +6,7 @@ class OrderModel extends OrderEntity {
     required super.orderId,
     required super.restaurantId,
     required super.restaurantName,
+    required super.customerName,
     required super.status,
     required super.orderList,
   });
@@ -15,6 +16,7 @@ class OrderModel extends OrderEntity {
       orderId: parseJson["orderId"] ?? "",
       restaurantId: parseJson["restaurantId"] ?? "",
       restaurantName: parseJson["restaurantName"] ?? "",
+      customerName: parseJson["customerName"] ?? "",
       status: parseJson["status"],
       orderList: parseJson["orderList"] != null
           ? MenuModel.fromList(parseJson["orderList"])

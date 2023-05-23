@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/pages/auth/login_page.dart';
+import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/widgets/widgets.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
 
@@ -44,22 +44,28 @@ class _SignUpPageState extends State<SignUpPage> {
           }
 
           if (state is SignUpSuccessful) {
-            await DialogService.showMessage(
-              title: "Account Created",
-              icon: Icons.check,
-              width: width,
-              context: context,
-            );
+            final optionState = context.read<UserOptionCubit>().state;
 
-            if (!mounted) return;
+            if (optionState is UserOptionIsUser) {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const UserAppPage(),
+                ),
+                (route) => false,
+              );
+            }
 
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => const LoginPage(),
-              ),
-              (route) => false,
-            );
+            if (optionState is UserOptionIsAdmin) {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const AdminAppPage(),
+                ),
+                (route) => false,
+              );
+            }
+            _nameController.clear();
+            _emailController.clear();
+            _passwordController.clear();
           }
         },
         child: Column(

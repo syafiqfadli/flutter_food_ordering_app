@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: AppColor.primaryColor),
                   ),
-                  hintText: "Search Restaurant or Menu...",
+                  hintText: "Search any food related...",
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 20,
                     vertical: 20,
@@ -175,9 +175,9 @@ class _HomePageState extends State<HomePage> {
                 }
 
                 if (state is HomeLoading) {
-                  return const Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Center(
+                  return SizedBox(
+                    height: height,
+                    child: const Center(
                       child: CircularProgressIndicator(
                         color: AppColor.primaryColor,
                       ),

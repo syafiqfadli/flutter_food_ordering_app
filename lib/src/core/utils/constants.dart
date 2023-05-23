@@ -19,6 +19,7 @@ abstract class ApiUrl {
   static String userInfo = "$baseUrl/user/info";
   static String checkoutOrder = "$baseUrl/user/checkout-order";
   static String addToCart = "$baseUrl/user/add-to-cart";
+  static String completeOrder = "$baseUrl/user/complete-order";
   static String deleteCart = "$baseUrl/user/delete-cart";
   static String deleteMenu = "$baseUrl/user/delete-menu";
   static String adminInfo = "$baseUrl/admin/info";
@@ -26,6 +27,7 @@ abstract class ApiUrl {
   static String addMenu = "$baseUrl/admin/add-menu";
   static String addRestaurant = "$baseUrl/admin/add-restaurant";
   static String orderStatus = "$baseUrl/admin/order-status";
+  static String updateStatus = "$baseUrl/admin/update-status";
   static String searchRestaurant = "$baseUrl/admin/search-restaurant";
   static String restaurantList = "$baseUrl/admin/restaurant-list";
 }

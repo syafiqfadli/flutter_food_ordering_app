@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/widgets/widgets.dart';
 
@@ -89,10 +87,6 @@ class _UserAppHeaderState extends State<UserAppHeader> {
   }
 
   Future<void> _openCart() async {
-    await context.read<UserInfoCubit>().userInfo();
-
-    if (!mounted) return;
-
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const CartPage(),

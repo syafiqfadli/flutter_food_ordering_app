@@ -52,8 +52,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 (route) => false,
               );
-              _emailController.clear();
-              _passwordController.clear();
             }
 
             if (optionState is UserOptionIsAdmin) {
@@ -63,9 +61,10 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 (route) => false,
               );
-              _emailController.clear();
-              _passwordController.clear();
             }
+
+            _emailController.clear();
+            _passwordController.clear();
           }
         },
         child: SingleChildScrollView(
