@@ -72,9 +72,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                   ),
                 );
 
-                if (!mounted) return;
-
-                context.read<UserInfoCubit>().userInfo();
+                _onRefresh();
               }
             },
           ),
@@ -123,7 +121,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                         child: Divider(color: AppColor.primaryColor),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8),
                         child: BlocSelector<CheckoutOrderCubit,
                             CheckoutOrderState, bool>(
                           selector: (state) {

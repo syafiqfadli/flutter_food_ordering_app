@@ -67,12 +67,12 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                         ),
                         Center(
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8),
                             child: Text(admin.email),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8),
                           child: Container(
                             color: AppColor.secondaryColor,
                             width: width,
@@ -118,7 +118,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 15.0),
+                  padding: const EdgeInsets.only(bottom: 15),
                   child: ElevatedButton(
                     onPressed: _logout,
                     style: ElevatedButton.styleFrom(

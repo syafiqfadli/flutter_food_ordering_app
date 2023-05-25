@@ -26,7 +26,7 @@ class _PaymentStatusPageState extends State<PaymentStatusPage> {
             const Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8),
                 child: Text(
                   "Your payment is successful!",
                   style: TextStyle(fontSize: 24),
@@ -36,7 +36,7 @@ class _PaymentStatusPageState extends State<PaymentStatusPage> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: ElevatedButton(
                   onPressed: _navigateToAppPage,
                   style: ElevatedButton.styleFrom(

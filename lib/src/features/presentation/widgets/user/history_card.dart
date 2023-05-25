@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
@@ -57,31 +58,31 @@ class HistoryCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 30,
-                    vertical: 30,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 5),
-                        child: Text(
+                        padding: const EdgeInsets.only(left: 4, bottom: 5),
+                        child: AutoSizeText(
                           history.restaurantName.toTitleCase(),
+                          minFontSize: 24,
+                          maxLines: 2,
                           style: const TextStyle(
-                            fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                       Text(
-                        " Date: $date",
+                        " Time: $time",
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                       Text(
-                        " Time: $time",
+                        " Date: $date",
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,

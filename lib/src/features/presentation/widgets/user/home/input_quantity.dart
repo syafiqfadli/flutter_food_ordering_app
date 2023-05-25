@@ -19,7 +19,7 @@ class _InputQuantityState extends State<InputQuantity> {
       children: [
         GestureDetector(
           child: Container(
-              padding: const EdgeInsets.all(14),
+              padding: const EdgeInsets.all(20),
               decoration: const ShapeDecoration(
                 shape: CircleBorder(),
                 color: AppColor.primaryColor,
@@ -27,8 +27,8 @@ class _InputQuantityState extends State<InputQuantity> {
               child: const Text(
                 "-",
                 style: TextStyle(
-                  fontSize: 16,
-                  color: AppColor.secondaryColor,
+                  fontSize: 26,
+                  color: AppColor.backgroundColor,
                 ),
               )),
           onTap: () {
@@ -46,6 +46,7 @@ class _InputQuantityState extends State<InputQuantity> {
             controller: widget.quantityController,
             maxLength: 3,
             textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 20),
             decoration: const InputDecoration(
               hintText: "0",
               border: InputBorder.none,
@@ -56,7 +57,7 @@ class _InputQuantityState extends State<InputQuantity> {
         ),
         GestureDetector(
           child: Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(16),
             decoration: const ShapeDecoration(
               shape: CircleBorder(),
               color: AppColor.primaryColor,
@@ -64,8 +65,8 @@ class _InputQuantityState extends State<InputQuantity> {
             child: const Text(
               "+",
               style: TextStyle(
-                fontSize: 16,
-                color: AppColor.secondaryColor,
+                fontSize: 26,
+                color: AppColor.backgroundColor,
               ),
             ),
           ),

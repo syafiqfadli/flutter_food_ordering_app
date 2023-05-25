@@ -31,22 +31,22 @@ class _CartPageState extends State<CartPage> {
       isMainPage: false,
       child: BlocListener<DeleteCartCubit, DeleteCartState>(
         listener: (context, state) async {
-          if (state is DeleteCartError) {
-            await DialogService.showMessage(
-              title: "Error",
-              message: state.message,
-              icon: Icons.error,
-              width: width,
-              context: context,
-            );
-          }
-
-          if (!mounted) return;
-
           if (state is DeleteCartSuccessful) {
             DialogService.showMessage(
               title: "Cart removed.",
               icon: Icons.check,
+              width: width,
+              context: context,
+            );
+
+            _onRefresh();
+          }
+
+          if (state is DeleteCartError) {
+            DialogService.showMessage(
+              title: "Error",
+              message: state.message,
+              icon: Icons.error,
               width: width,
               context: context,
             );

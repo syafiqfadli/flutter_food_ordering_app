@@ -5,6 +5,7 @@ export 'auth/signup_page.dart';
 export 'app/user/user_app_page.dart';
 export 'app/user/history_page.dart';
 export 'app/user/user_profile_page.dart.dart';
+export 'app/user/home/home_menu_page.dart';
 export 'app/user/home/home_details_page.dart';
 export 'app/user/home/home_page.dart';
 export 'app/user/cart/cart_page.dart';

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_food_ordering_app/firebase_options.dart';
@@ -15,7 +16,9 @@ void main() async {
   );
   await dotenv.load(fileName: ".env");
   injectorInit();
-  runApp(const MainApp());
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then((value) => runApp(const MainApp()));
 }
 
 class MainApp extends StatefulWidget {

@@ -72,7 +72,7 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
                     builder: (context, isLoading) {
                       if (isLoading) {
                         return const Padding(
-                          padding: EdgeInsets.all(10.0),
+                          padding: EdgeInsets.all(10),
                           child: Center(
                             child: CircularProgressIndicator(
                               color: AppColor.primaryColor,

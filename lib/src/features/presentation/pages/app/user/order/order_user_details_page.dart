@@ -84,7 +84,7 @@ class _OrderUserDetailsPageState extends State<OrderUserDetailsPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8),
                       child: BlocSelector<CompleteOrderCubit,
                           CompleteOrderState, bool>(
                         selector: (state) {
@@ -97,7 +97,7 @@ class _OrderUserDetailsPageState extends State<OrderUserDetailsPage> {
                         builder: (context, isLoading) {
                           if (isLoading) {
                             return const Padding(
-                              padding: EdgeInsets.all(10.0),
+                              padding: EdgeInsets.all(10),
                               child: Center(
                                 child: CircularProgressIndicator(
                                   color: AppColor.primaryColor,

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
@@ -69,11 +70,12 @@ class _CartDetailsCardState extends State<CartDetailsCard> {
                       padding: const EdgeInsets.only(bottom: 5),
                       child: SizedBox(
                         width: 140,
-                        child: Text(
+                        child: AutoSizeText(
                           widget.menu.menuName,
+                          maxLines: 2,
+                          minFontSize: 20,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
-                            fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -102,12 +104,7 @@ class _CartDetailsCardState extends State<CartDetailsCard> {
                         ),
                       )
                     : IconButton(
-                        onPressed: () {
-                          _deleteMenu(
-                            cartId: widget.cart.cartId,
-                            menuId: widget.menu.menuId,
-                          );
-                        },
+                        onPressed: _deleteMenu,
                         icon: const Icon(
                           Icons.delete,
                           color: Colors.red,
@@ -122,17 +119,17 @@ class _CartDetailsCardState extends State<CartDetailsCard> {
     );
   }
 
-  Future<void> _deleteMenu({
-    required String cartId,
-    required String menuId,
-  }) async {
+  Future<void> _deleteMenu() async {
+    final cartId = widget.cart.cartId;
+    final menuId = widget.menu.menuId;
+
     setState(() {
       isClicked = true;
     });
 
     if (widget.menuList.length == 1) {
-      Navigator.pop(context);
-      context.read<DeleteCartCubit>().deleteCart(cartId: cartId);
+      Navigator.pop(context, true);
+
       setState(() {
         isClicked = false;
       });

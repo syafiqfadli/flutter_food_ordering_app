@@ -4,6 +4,7 @@ class MenuModel extends MenuEntity {
   const MenuModel({
     required super.menuId,
     required super.menuName,
+    required super.description,
     required super.price,
     required super.quantity,
     required super.totalPrice,
@@ -13,6 +14,7 @@ class MenuModel extends MenuEntity {
     return MenuModel(
       menuId: parseJson["menuId"],
       menuName: parseJson["menuName"],
+      description: parseJson["description"] ?? "No description",
       price: parseJson["price"],
       quantity: parseJson["quantity"] ?? 0,
       totalPrice: parseJson["price"] * (parseJson["quantity"] ?? 0),

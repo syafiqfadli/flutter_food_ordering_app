@@ -3,27 +3,27 @@ import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
 
-class HomeCard extends StatelessWidget {
-  final int index;
+class HomeMenuCard extends StatelessWidget {
+  final MenuEntity menu;
   final RestaurantEntity restaurant;
 
-  const HomeCard({
+  const HomeMenuCard({
     super.key,
-    required this.index,
+    required this.menu,
     required this.restaurant,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      padding: const EdgeInsets.all(5),
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => HomeDetailsPage(
-                index: index,
                 restaurant: restaurant,
+                menu: menu,
               ),
             ),
           );
@@ -39,24 +39,25 @@ class HomeCard extends StatelessWidget {
           elevation: 3,
           color: AppColor.backgroundColor,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Icon(Icons.restaurant),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 30,
-                    ),
-                    child: Text(
-                      restaurant.restaurantName,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                Text(
+                  menu.menuName,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "RM ${menu.price.toStringAsFixed(2)}",
+                  style: const TextStyle(
+                    fontSize: 16,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],

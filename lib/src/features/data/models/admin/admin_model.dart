@@ -16,7 +16,7 @@ class AdminModel extends AdminEntity {
       name: parseJson['name'],
       email: parseJson['email'],
       order: parseJson["order"] != null
-          ? OrderModel.fromList(parseJson["order"])
+          ? OrderModel.fromList(parseJson["order"]).reversed.toList()
           : <OrderModel>[],
       restaurant: parseJson["restaurant"] != null
           ? RestaurantModel.fromList(parseJson["restaurant"])

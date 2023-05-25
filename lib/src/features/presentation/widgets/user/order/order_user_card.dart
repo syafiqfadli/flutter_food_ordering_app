@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
@@ -71,10 +72,11 @@ class OrderUserCard extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20),
-                            child: Text(
+                            child: AutoSizeText(
                               order.restaurantName.toTitleCase(),
+                              minFontSize: 24,
+                              maxLines: 2,
                               style: const TextStyle(
-                                fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

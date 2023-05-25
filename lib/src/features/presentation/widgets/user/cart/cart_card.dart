@@ -23,16 +23,7 @@ class _CartCardState extends State<CartCard> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => CartDetailsPage(
-                cartIndex: widget.cartIndex,
-                cart: widget.cart,
-              ),
-            ),
-          );
-        },
+        onTap: _navigateToCartDetails,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -84,9 +75,7 @@ class _CartCardState extends State<CartCard> {
                         ),
                       )
                     : IconButton(
-                        onPressed: () {
-                          _deleteCart(cartId: widget.cart.cartId);
-                        },
+                        onPressed: _deleteCart,
                         icon: const Icon(
                           Icons.delete,
                           color: Colors.red,
@@ -101,7 +90,9 @@ class _CartCardState extends State<CartCard> {
     );
   }
 
-  Future<void> _deleteCart({required String cartId}) async {
+  Future<void> _deleteCart() async {
+    final cartId = widget.cart.cartId;
+
     setState(() {
       isClicked = true;
     });
@@ -111,5 +102,24 @@ class _CartCardState extends State<CartCard> {
     setState(() {
       isClicked = false;
     });
+  }
+
+  Future<void> _navigateToCartDetails() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => CartDetailsPage(
+          cartIndex: widget.cartIndex,
+          cart: widget.cart,
+        ),
+      ),
+    );
+
+    if (result == null) {
+      return;
+    }
+
+    if (result) {
+      _deleteCart();
+    }
   }
 }

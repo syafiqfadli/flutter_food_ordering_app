@@ -55,17 +55,17 @@ class ApiDataSourceImpl implements ApiDataSource {
     } on SocketException catch (error) {
       String message = "";
 
-      if (error.toString() == "Connection failed") {
-        message = "Please check your internet connection.";
-      }
-
       if (error.toString() == "Connection refused") {
         message = "Server offline.";
+      } else {
+        message = "Please check your internet connection.";
       }
 
       return Left(ServerFailure(message: message));
     } on TimeoutException catch (timeout) {
       return Left(ServerFailure(message: timeout.toString()));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
     }
   }
 

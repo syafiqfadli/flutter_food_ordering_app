@@ -17,13 +17,13 @@ class UserModel extends UserEntity {
       name: parseJson['name'],
       email: parseJson['email'],
       cart: parseJson["cart"] != null
-          ? CartModel.fromList(parseJson["cart"])
+          ? CartModel.fromList(parseJson["cart"]).reversed.toList()
           : <CartModel>[],
       order: parseJson["order"] != null
-          ? OrderModel.fromList(parseJson["order"])
+          ? OrderModel.fromList(parseJson["order"]).reversed.toList()
           : <OrderModel>[],
       history: parseJson["history"] != null
-          ? HistoryModel.fromList(parseJson["history"])
+          ? HistoryModel.fromList(parseJson["history"]).reversed.toList()
           : <HistoryModel>[],
     );
   }
