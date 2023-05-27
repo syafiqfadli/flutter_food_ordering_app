@@ -17,8 +17,22 @@ abstract class AdminRepo {
   Future<Either<Failure, void>> addRestaurant({
     required String restaurantName,
   });
+  Future<Either<Failure, void>> deleteMenu({
+    required String restaurantId,
+    required String menuId,
+  });
+  Future<Either<Failure, void>> deleteRestaurant({
+    required String restaurantId,
+  });
   Future<Either<Failure, void>> addMenu({
     required String restaurantId,
+    required String menuName,
+    required String description,
+    required double price,
+  });
+  Future<Either<Failure, void>> editMenu({
+    required String restaurantId,
+    required String menuId,
     required String menuName,
     required String description,
     required double price,
@@ -164,6 +178,100 @@ class AdminRepoImpl implements AdminRepo {
         headers: {'Content-Type': 'application/json'},
         body: {
           "orderId": orderId,
+        },
+      );
+
+      if (responseEither.isLeft()) {
+        final failure = responseEither.swap().getOrElse(
+              () => const SystemFailure(),
+            );
+        return Left(SystemFailure(message: failure.message));
+      }
+
+      return const Right(null);
+    } catch (e) {
+      return Left(SystemFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> editMenu({
+    required String restaurantId,
+    required String menuId,
+    required String menuName,
+    required String description,
+    required double price,
+  }) async {
+    try {
+      final Uri url = Uri.parse(ApiUrl.editMenu);
+
+      final responseEither = await apiDataSource.patch(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: {
+          "restaurantId": restaurantId,
+          "menuId": menuId,
+          "menuName": menuName,
+          "description": description,
+          "price": price,
+        },
+      );
+
+      if (responseEither.isLeft()) {
+        final failure = responseEither.swap().getOrElse(
+              () => const SystemFailure(),
+            );
+        return Left(SystemFailure(message: failure.message));
+      }
+
+      return const Right(null);
+    } catch (e) {
+      return Left(SystemFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteMenu({
+    required String restaurantId,
+    required String menuId,
+  }) async {
+    try {
+      final Uri url = Uri.parse(ApiUrl.deleteAdminMenu);
+
+      final responseEither = await apiDataSource.patch(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: {
+          "restaurantId": restaurantId,
+          "menuId": menuId,
+        },
+      );
+
+      if (responseEither.isLeft()) {
+        final failure = responseEither.swap().getOrElse(
+              () => const SystemFailure(),
+            );
+        return Left(SystemFailure(message: failure.message));
+      }
+
+      return const Right(null);
+    } catch (e) {
+      return Left(SystemFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteRestaurant({
+    required String restaurantId,
+  }) async {
+    try {
+      final Uri url = Uri.parse(ApiUrl.deleteRestaurant);
+
+      final responseEither = await apiDataSource.patch(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: {
+          "restaurantId": restaurantId,
         },
       );
 

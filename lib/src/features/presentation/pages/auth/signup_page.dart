@@ -20,12 +20,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final _validator = InputValidator();
 
   @override
-  void initState() {
-    super.initState();
-    context.read<UserOptionCubit>().optionSelected(0);
-  }
-
-  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 

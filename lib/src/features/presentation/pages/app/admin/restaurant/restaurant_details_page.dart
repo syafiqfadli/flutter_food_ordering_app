@@ -45,6 +45,7 @@ class _RestaurantDetailsPageState extends State<RestaurantDetailsPage> {
                 itemCount: admin.restaurant[widget.index].menuList.length,
                 itemBuilder: (context, index) => MenuCard(
                   index: index,
+                  restaurant: widget.restaurant,
                   menu: admin.restaurant[widget.index].menuList[index],
                 ),
               );

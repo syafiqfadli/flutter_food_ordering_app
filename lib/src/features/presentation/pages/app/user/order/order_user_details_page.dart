@@ -36,31 +36,61 @@ class _OrderUserDetailsPageState extends State<OrderUserDetailsPage> {
     return BaseUserApp(
       title: widget.order.restaurantName.toUpperCase(),
       isMainPage: false,
-      child: BlocListener<CompleteOrderCubit, CompleteOrderState>(
-        listener: (context, state) async {
-          if (state is CompleteOrderError) {
-            DialogService.showMessage(
-              title: "Error",
-              message: state.message,
-              icon: Icons.error,
-              width: width,
-              context: context,
-            );
-          }
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<CompleteOrderCubit, CompleteOrderState>(
+            listener: (context, state) async {
+              if (state is CompleteOrderError) {
+                DialogService.showMessage(
+                  title: "Error",
+                  message: state.message,
+                  icon: Icons.error,
+                  width: width,
+                  context: context,
+                );
+              }
 
-          if (state is CompleteOrderSuccessful) {
-            await DialogService.showMessage(
-              title: "Order completed",
-              icon: Icons.check,
-              width: width,
-              context: context,
-            );
+              if (state is CompleteOrderSuccessful) {
+                await DialogService.showMessage(
+                  title: "Order completed",
+                  icon: Icons.check,
+                  width: width,
+                  context: context,
+                );
 
-            if (!mounted) return;
+                if (!mounted) return;
 
-            Navigator.pop(context);
-          }
-        },
+                Navigator.pop(context);
+              }
+            },
+          ),
+          BlocListener<CancelOrderCubit, CancelOrderState>(
+            listener: (context, state) async {
+              if (state is CancelOrderError) {
+                DialogService.showMessage(
+                  title: "Error",
+                  message: state.message,
+                  icon: Icons.error,
+                  width: width,
+                  context: context,
+                );
+              }
+
+              if (state is CancelOrderSuccessful) {
+                await DialogService.showMessage(
+                  title: "Order cancelled",
+                  icon: Icons.check,
+                  width: width,
+                  context: context,
+                );
+
+                if (!mounted) return;
+
+                Navigator.pop(context);
+              }
+            },
+          ),
+        ],
         child: Expanded(
           child: CustomRefresh(
             onRefresh: _onRefresh,
@@ -83,44 +113,79 @@ class _OrderUserDetailsPageState extends State<OrderUserDetailsPage> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: BlocSelector<CompleteOrderCubit,
-                          CompleteOrderState, bool>(
-                        selector: (state) {
-                          if (state is CompleteOrderLoading) {
-                            return true;
-                          }
+                    order.status == "In the kitchen"
+                        ? Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: BlocSelector<CancelOrderCubit,
+                                CancelOrderState, bool>(
+                              selector: (state) {
+                                if (state is CancelOrderLoading) {
+                                  return true;
+                                }
 
-                          return false;
-                        },
-                        builder: (context, isLoading) {
-                          if (isLoading) {
-                            return const Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  color: AppColor.primaryColor,
-                                ),
-                              ),
-                            );
-                          }
+                                return false;
+                              },
+                              builder: (context, isLoading) {
+                                if (isLoading) {
+                                  return const Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        color: AppColor.primaryColor,
+                                      ),
+                                    ),
+                                  );
+                                }
 
-                          return ElevatedButton(
-                            onPressed: order.status == "Out of delivery"
-                                ? () {
-                                    _onArrived(orderId: order.orderId);
-                                  }
-                                : null,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColor.primaryColor,
-                              fixedSize: Size(width, 50),
+                                return ElevatedButton(
+                                  onPressed: () {
+                                    _onCancel(orderId: order.orderId);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.red[400],
+                                    fixedSize: Size(width, 50),
+                                  ),
+                                  child: const Text('CANCEL'),
+                                );
+                              },
                             ),
-                            child: const Text('ARRIVED'),
-                          );
-                        },
-                      ),
-                    ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: BlocSelector<CompleteOrderCubit,
+                                CompleteOrderState, bool>(
+                              selector: (state) {
+                                if (state is CompleteOrderLoading) {
+                                  return true;
+                                }
+
+                                return false;
+                              },
+                              builder: (context, isLoading) {
+                                if (isLoading) {
+                                  return const Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        color: AppColor.primaryColor,
+                                      ),
+                                    ),
+                                  );
+                                }
+
+                                return ElevatedButton(
+                                  onPressed: () {
+                                    _onArrived(orderId: order.orderId);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColor.primaryColor,
+                                    fixedSize: Size(width, 50),
+                                  ),
+                                  child: const Text('ARRIVED'),
+                                );
+                              },
+                            ),
+                          ),
                   ],
                 );
               },
@@ -137,5 +202,9 @@ class _OrderUserDetailsPageState extends State<OrderUserDetailsPage> {
 
   Future<void> _onArrived({required String orderId}) async {
     await context.read<CompleteOrderCubit>().completeOrder(orderId: orderId);
+  }
+
+  Future<void> _onCancel({required String orderId}) async {
+    await context.read<CancelOrderCubit>().cancelOrder(orderId: orderId);
   }
 }

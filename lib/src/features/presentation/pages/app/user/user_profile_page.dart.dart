@@ -35,6 +35,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         const Padding(
                           padding: EdgeInsets.all(8),
                           child: CircleAvatar(
+                            foregroundColor: AppColor.primaryColor,
                             radius: 50,
                             backgroundColor: AppColor.secondaryColor,
                             child: Icon(

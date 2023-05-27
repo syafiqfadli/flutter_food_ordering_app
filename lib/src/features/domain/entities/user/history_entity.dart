@@ -5,6 +5,7 @@ class HistoryEntity extends Equatable {
   final String historyId;
   final String orderId;
   final String restaurantName;
+  final String status;
   final DateTime completedAt;
   final List<MenuEntity> orderList;
 
@@ -12,6 +13,7 @@ class HistoryEntity extends Equatable {
     required this.historyId,
     required this.orderId,
     required this.restaurantName,
+    required this.status,
     required this.completedAt,
     required this.orderList,
   });

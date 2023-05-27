@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
 import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
+import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
 
 class MenuCard extends StatelessWidget {
   final int index;
+  final RestaurantEntity restaurant;
   final MenuEntity menu;
 
   const MenuCard({
     super.key,
     required this.index,
+    required this.restaurant,
     required this.menu,
   });
 
@@ -17,7 +20,7 @@ class MenuCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: SizedBox(
-        height: 120,
+        height: 150,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -75,6 +78,36 @@ class MenuCard extends StatelessWidget {
                     ),
                   ),
                 ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.primaryColor,
+                        fixedSize: const Size(80, 30),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => EditMenuPage(
+                              restaurant: restaurant,
+                              menu: menu,
+                            ),
+                          ),
+                        );
+                      },
+                      child: const Text('Edit'),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red[400],
+                        fixedSize: const Size(80, 30),
+                      ),
+                      onPressed: () {},
+                      child: const Text('Delete'),
+                    ),
+                  ],
+                )
               ],
             ),
           ),

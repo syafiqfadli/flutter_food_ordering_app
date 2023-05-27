@@ -6,6 +6,7 @@ class HistoryModel extends HistoryEntity {
     required super.historyId,
     required super.orderId,
     required super.restaurantName,
+    required super.status,
     required super.completedAt,
     required super.orderList,
   });
@@ -15,6 +16,7 @@ class HistoryModel extends HistoryEntity {
       historyId: parseJson["historyId"],
       orderId: parseJson["orderId"],
       restaurantName: parseJson["restaurantName"],
+      status: parseJson["status"],
       completedAt: DateTime.parse(parseJson["completedAt"]),
       orderList: parseJson["orderList"] != null
           ? MenuModel.fromList(parseJson["orderList"])

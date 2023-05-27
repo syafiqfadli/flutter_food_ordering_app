@@ -18,6 +18,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
   late InKitchenCubit inKitchenCubit;
   late DeliveryCubit deliveryCubit;
   late CompletedCubit completedCubit;
+  late CancelledCubit cancelledCubit;
 
   @override
   void initState() {
@@ -25,6 +26,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
     inKitchenCubit = blocInject<InKitchenCubit>()..inKitchen();
     deliveryCubit = blocInject<DeliveryCubit>()..outOfDelivery();
     completedCubit = blocInject<CompletedCubit>()..completed();
+    cancelledCubit = blocInject<CancelledCubit>()..cancelled();
   }
 
   @override
@@ -48,6 +50,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                         const Padding(
                           padding: EdgeInsets.all(8),
                           child: CircleAvatar(
+                            foregroundColor: AppColor.primaryColor,
                             radius: 50,
                             backgroundColor: AppColor.secondaryColor,
                             child: Icon(
@@ -76,35 +79,53 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                           child: Container(
                             color: AppColor.secondaryColor,
                             width: width,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                            child: Column(
                               children: [
-                                BlocBuilder<InKitchenCubit, int>(
-                                  builder: (context, length) {
-                                    return ProfileOrderStatus(
-                                      orderLength: length,
-                                      status: "In Kitchen",
-                                      boxColor: Colors.red[200]!,
-                                    );
-                                  },
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    BlocBuilder<InKitchenCubit, int>(
+                                      builder: (context, length) {
+                                        return ProfileOrderStatus(
+                                          orderLength: length,
+                                          status: "In Kitchen",
+                                          boxColor: Colors.blue[200]!,
+                                        );
+                                      },
+                                    ),
+                                    BlocBuilder<DeliveryCubit, int>(
+                                      builder: (context, length) {
+                                        return ProfileOrderStatus(
+                                          orderLength: length,
+                                          status: "Out of Delivery",
+                                          boxColor: Colors.yellow[200]!,
+                                        );
+                                      },
+                                    ),
+                                  ],
                                 ),
-                                BlocBuilder<DeliveryCubit, int>(
-                                  builder: (context, length) {
-                                    return ProfileOrderStatus(
-                                      orderLength: length,
-                                      status: "Out of Delivery",
-                                      boxColor: Colors.yellow[200]!,
-                                    );
-                                  },
-                                ),
-                                BlocBuilder<CompletedCubit, int>(
-                                  builder: (context, length) {
-                                    return ProfileOrderStatus(
-                                      orderLength: length,
-                                      status: "Completed",
-                                      boxColor: Colors.green[400]!,
-                                    );
-                                  },
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    BlocBuilder<CompletedCubit, int>(
+                                      builder: (context, length) {
+                                        return ProfileOrderStatus(
+                                          orderLength: length,
+                                          status: "Completed",
+                                          boxColor: Colors.green[400]!,
+                                        );
+                                      },
+                                    ),
+                                    BlocBuilder<CancelledCubit, int>(
+                                      builder: (context, length) {
+                                        return ProfileOrderStatus(
+                                          orderLength: length,
+                                          status: "Cancelled",
+                                          boxColor: Colors.red[200]!,
+                                        );
+                                      },
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -164,6 +185,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
     context.read<InKitchenCubit>().inKitchen();
     context.read<DeliveryCubit>().outOfDelivery();
     context.read<CompletedCubit>().completed();
+    context.read<CancelledCubit>().cancelled();
 
     await context.read<AdminInfoCubit>().adminInfo();
   }

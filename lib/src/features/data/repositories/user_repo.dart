@@ -11,6 +11,7 @@ abstract class UserRepo {
   Future<Either<Failure, List<RestaurantEntity>>> restaurantList();
   Future<Either<Failure, void>> deleteCart({required String cartId});
   Future<Either<Failure, void>> completeOrder({required String orderId});
+  Future<Either<Failure, void>> cancelOrder({required String orderId});
   Future<Either<Failure, void>> deleteMenu({
     required String cartId,
     required String menuId,
@@ -27,8 +28,9 @@ abstract class UserRepo {
     required double price,
     required int quantity,
   });
-  Future<Either<Failure, List<RestaurantEntity>>> searchRestaurant(
-      {required String query});
+  Future<Either<Failure, List<RestaurantEntity>>> searchRestaurant({
+    required String query,
+  });
 }
 
 class UserRepoImpl implements UserRepo {
@@ -233,7 +235,7 @@ class UserRepoImpl implements UserRepo {
     required String menuId,
   }) async {
     try {
-      final Uri url = Uri.parse(ApiUrl.deleteMenu);
+      final Uri url = Uri.parse(ApiUrl.deleteUserMenu);
 
       final responseEither = await apiDataSource.delete(
         url,
@@ -262,6 +264,33 @@ class UserRepoImpl implements UserRepo {
   Future<Either<Failure, void>> completeOrder({required String orderId}) async {
     try {
       final Uri url = Uri.parse(ApiUrl.completeOrder);
+
+      final responseEither = await apiDataSource.patch(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: {
+          "orderId": orderId,
+        },
+      );
+
+      if (responseEither.isLeft()) {
+        final failure = responseEither.swap().getOrElse(
+              () => const SystemFailure(),
+            );
+
+        return Left(SystemFailure(message: failure.message));
+      }
+
+      return const Right(null);
+    } catch (e) {
+      return Left(SystemFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> cancelOrder({required String orderId}) async {
+    try {
+      final Uri url = Uri.parse(ApiUrl.cancelOrder);
 
       final responseEither = await apiDataSource.patch(
         url,

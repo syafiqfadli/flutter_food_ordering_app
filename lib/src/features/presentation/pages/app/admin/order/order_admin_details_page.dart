@@ -75,6 +75,43 @@ class _OrderAdminDetailsPageState extends State<OrderAdminDetailsPage> {
                         ),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 22,
+                        vertical: 5,
+                      ),
+                      child: Row(
+                        children: [
+                          const Text(
+                            'Status: ',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: order.status == "In the kitchen"
+                                  ? Colors.blue[200]
+                                  : order.status == "Out of delivery"
+                                      ? Colors.yellow[200]
+                                      : order.status == "Completed"
+                                          ? Colors.green[400]
+                                          : Colors.red[200],
+                            ),
+                            child: Text(
+                              order.status,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Expanded(
                       child: ListView.builder(
                         itemCount: order.orderList.length,

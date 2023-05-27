@@ -18,7 +18,7 @@ class RestaurantCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: SizedBox(
-        height: 120,
+        height: 150,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -62,21 +62,35 @@ class RestaurantCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.primaryColor,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => RestaurantDetailsPage(
-                          index: index,
-                          restaurant: restaurant,
-                        ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.primaryColor,
+                        fixedSize: const Size(80, 30),
                       ),
-                    );
-                  },
-                  child: const Text('View'),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => RestaurantDetailsPage(
+                              index: index,
+                              restaurant: restaurant,
+                            ),
+                          ),
+                        );
+                      },
+                      child: const Text('View'),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red[400],
+                        fixedSize: const Size(80, 30),
+                      ),
+                      onPressed: () {},
+                      child: const Text('Delete'),
+                    ),
+                  ],
                 )
               ],
             ),

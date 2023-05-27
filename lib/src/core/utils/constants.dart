@@ -20,12 +20,16 @@ abstract class ApiUrl {
   static String checkoutOrder = "$baseUrl/user/checkout-order";
   static String addToCart = "$baseUrl/user/add-to-cart";
   static String completeOrder = "$baseUrl/user/complete-order";
+  static String cancelOrder = "$baseUrl/user/cancel-order";
   static String deleteCart = "$baseUrl/user/delete-cart";
-  static String deleteMenu = "$baseUrl/user/delete-menu";
+  static String deleteUserMenu = "$baseUrl/user/delete-menu";
   static String adminInfo = "$baseUrl/admin/info";
   static String createAdmin = "$baseUrl/admin/create";
   static String addMenu = "$baseUrl/admin/add-menu";
+  static String editMenu = "$baseUrl/admin/edit-menu";
+  static String deleteAdminMenu = "$baseUrl/admin/delete-menu";
   static String addRestaurant = "$baseUrl/admin/add-restaurant";
+  static String deleteRestaurant = "$baseUrl/admin/delete-restaurant";
   static String orderStatus = "$baseUrl/admin/order-status";
   static String updateStatus = "$baseUrl/admin/update-status";
   static String searchRestaurant = "$baseUrl/admin/search-restaurant";

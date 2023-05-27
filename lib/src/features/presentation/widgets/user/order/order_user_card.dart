@@ -95,10 +95,12 @@ class OrderUserCard extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(25),
                                   color: order.status == "In the kitchen"
-                                      ? Colors.red[200]
+                                      ? Colors.blue[200]
                                       : order.status == "Out of delivery"
                                           ? Colors.yellow[200]
-                                          : Colors.green[400],
+                                          : order.status == "Completed"
+                                              ? Colors.green[400]
+                                              : Colors.red[200],
                                 ),
                                 child: Text(
                                   order.status,

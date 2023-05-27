@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
@@ -44,11 +45,11 @@ class HomeMenuCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
+                AutoSizeText(
                   menu.menuName,
+                  minFontSize: 20,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

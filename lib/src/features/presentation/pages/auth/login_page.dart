@@ -19,12 +19,6 @@ class _LoginPageState extends State<LoginPage> {
   final _validator = InputValidator();
 
   @override
-  void initState() {
-    super.initState();
-    context.read<UserOptionCubit>().optionSelected(0);
-  }
-
-  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
@@ -45,7 +39,9 @@ class _LoginPageState extends State<LoginPage> {
           if (state is LoginSuccessful) {
             final optionState = context.read<UserOptionCubit>().state;
 
-            if (optionState is UserOptionIsUser) {
+            if (optionState is UserOptionInitial ||
+                optionState is UserOptionIsUser) {
+              context.read<UserOptionCubit>().optionSelected(0);
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                   builder: (context) => const UserAppPage(),
