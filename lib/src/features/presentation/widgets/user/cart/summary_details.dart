@@ -41,9 +41,9 @@ class SummaryDetails extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Row(
+                  const Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Expanded(
                         child: Text(
                           "Tax: ",

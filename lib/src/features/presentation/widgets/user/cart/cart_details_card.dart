@@ -137,7 +137,7 @@ class _CartDetailsCardState extends State<CartDetailsCard> {
       return;
     }
 
-    await context.read<DeleteMenuCubit>().deleteMenu(
+    await context.read<DeleteMenuUserCubit>().deleteMenu(
           cartId: cartId,
           menuId: menuId,
         );

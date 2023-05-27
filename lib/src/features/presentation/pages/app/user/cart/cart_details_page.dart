@@ -34,9 +34,9 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
       isMainPage: false,
       child: MultiBlocListener(
         listeners: [
-          BlocListener<DeleteMenuCubit, DeleteMenuState>(
+          BlocListener<DeleteMenuUserCubit, DeleteMenuUserState>(
             listener: (context, state) async {
-              if (state is DeleteMenuError) {
+              if (state is DeleteMenuUserError) {
                 DialogService.showMessage(
                   title: "Error",
                   message: state.message,
@@ -46,7 +46,7 @@ class _CartDetailsPageState extends State<CartDetailsPage> {
                 );
               }
 
-              if (state is DeleteMenuSuccessful) {
+              if (state is DeleteMenuUserSuccessful) {
                 _onRefresh();
               }
             },

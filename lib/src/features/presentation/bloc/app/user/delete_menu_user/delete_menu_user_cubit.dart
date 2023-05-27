@@ -2,20 +2,20 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_food_ordering_app/src/features/data/repositories/repositories.dart';
 
-part 'delete_menu_state.dart';
+part 'delete_menu_user_state.dart';
 
-class DeleteMenuCubit extends Cubit<DeleteMenuState> {
+class DeleteMenuUserCubit extends Cubit<DeleteMenuUserState> {
   final UserRepo userRepo;
 
-  DeleteMenuCubit({
+  DeleteMenuUserCubit({
     required this.userRepo,
-  }) : super(DeleteMenuInitial());
+  }) : super(DeleteMenuUserInitial());
 
   Future<void> deleteMenu({
     required String cartId,
     required String menuId,
   }) async {
-    emit(DeleteMenuLoading());
+    emit(DeleteMenuUserLoading());
 
     final deleteMenuEither = await userRepo.deleteMenu(
       cartId: cartId,
@@ -23,9 +23,9 @@ class DeleteMenuCubit extends Cubit<DeleteMenuState> {
     );
 
     deleteMenuEither.fold((failure) {
-      emit(DeleteMenuError(message: failure.message));
+      emit(DeleteMenuUserError(message: failure.message));
     }, (_) {
-      emit(DeleteMenuSuccessful());
+      emit(DeleteMenuUserSuccessful());
     });
   }
 }

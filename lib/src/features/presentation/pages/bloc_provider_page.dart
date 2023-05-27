@@ -22,7 +22,8 @@ class _BlocProviderPageState extends State<BlocProviderPage> {
   final UserInfoCubit _userInfoCubit = blocInject<UserInfoCubit>();
   final HomeCubit _homeCubit = blocInject<HomeCubit>();
   final DeleteCartCubit _deleteCartCubit = blocInject<DeleteCartCubit>();
-  final DeleteMenuCubit _deleteMenuCubit = blocInject<DeleteMenuCubit>();
+  final DeleteMenuUserCubit _deleteMenuUserCubit =
+      blocInject<DeleteMenuUserCubit>();
   final AddToCartCubit _addToCartCubit = blocInject<AddToCartCubit>();
   final CompleteOrderCubit _completeOrderCubit =
       blocInject<CompleteOrderCubit>();
@@ -39,6 +40,10 @@ class _BlocProviderPageState extends State<BlocProviderPage> {
   final EditMenuCubit _editMenuCubit = blocInject<EditMenuCubit>();
   final AddRestaurantCubit _addRestaurantCubit =
       blocInject<AddRestaurantCubit>();
+  final DeleteMenuAdminCubit _deleteMenuAdminCubit =
+      blocInject<DeleteMenuAdminCubit>();
+  final DeleteRestaurantCubit _deleteRestaurantCubit =
+      blocInject<DeleteRestaurantCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +59,7 @@ class _BlocProviderPageState extends State<BlocProviderPage> {
         BlocProvider.value(value: _userInfoCubit),
         BlocProvider.value(value: _homeCubit),
         BlocProvider.value(value: _deleteCartCubit),
-        BlocProvider.value(value: _deleteMenuCubit),
+        BlocProvider.value(value: _deleteMenuUserCubit),
         BlocProvider.value(value: _addToCartCubit),
         BlocProvider.value(value: _completeOrderCubit),
         BlocProvider.value(value: _cancelOrderCubit),
@@ -68,6 +73,8 @@ class _BlocProviderPageState extends State<BlocProviderPage> {
         BlocProvider.value(value: _addMenuCubit),
         BlocProvider.value(value: _editMenuCubit),
         BlocProvider.value(value: _addRestaurantCubit),
+        BlocProvider.value(value: _deleteMenuAdminCubit),
+        BlocProvider.value(value: _deleteRestaurantCubit),
       ],
       child: widget.child,
     );

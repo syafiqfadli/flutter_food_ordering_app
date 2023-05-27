@@ -65,6 +65,14 @@ void blocInit() {
     () => UpdateStatusCubit(adminRepo: blocInject()),
   );
 
+  blocInject.registerLazySingleton<DeleteMenuAdminCubit>(
+    () => DeleteMenuAdminCubit(adminRepo: blocInject()),
+  );
+
+  blocInject.registerLazySingleton<DeleteRestaurantCubit>(
+    () => DeleteRestaurantCubit(adminRepo: blocInject()),
+  );
+
   blocInject.registerLazySingleton<CheckoutOrderCubit>(
     () => CheckoutOrderCubit(userRepo: blocInject()),
   );
@@ -80,8 +88,8 @@ void blocInit() {
     ),
   );
 
-  blocInject.registerLazySingleton<DeleteMenuCubit>(
-    () => DeleteMenuCubit(userRepo: blocInject()),
+  blocInject.registerLazySingleton<DeleteMenuUserCubit>(
+    () => DeleteMenuUserCubit(userRepo: blocInject()),
   );
 
   blocInject.registerLazySingleton<LoginCubit>(

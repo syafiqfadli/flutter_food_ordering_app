@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
+import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
 
-class RestaurantCard extends StatelessWidget {
+class RestaurantCard extends StatefulWidget {
   final int index;
   final RestaurantEntity restaurant;
 
@@ -12,6 +14,13 @@ class RestaurantCard extends StatelessWidget {
     required this.index,
     required this.restaurant,
   });
+
+  @override
+  State<RestaurantCard> createState() => _RestaurantCardState();
+}
+
+class _RestaurantCardState extends State<RestaurantCard> {
+  bool isClicked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +53,7 @@ class RestaurantCard extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      '${index + 1}',
+                      '${widget.index + 1}',
                       style: const TextStyle(fontSize: 20),
                     ),
                   ),
@@ -53,7 +62,7 @@ class RestaurantCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Text(
-                      restaurant.restaurantName,
+                      widget.restaurant.restaurantName,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 20,
@@ -74,22 +83,31 @@ class RestaurantCard extends StatelessWidget {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => RestaurantDetailsPage(
-                              index: index,
-                              restaurant: restaurant,
+                              index: widget.index,
+                              restaurant: widget.restaurant,
                             ),
                           ),
                         );
                       },
                       child: const Text('View'),
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red[400],
-                        fixedSize: const Size(80, 30),
-                      ),
-                      onPressed: () {},
-                      child: const Text('Delete'),
-                    ),
+                    isClicked
+                        ? const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: AppColor.primaryColor,
+                              ),
+                            ),
+                          )
+                        : ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red[400],
+                              fixedSize: const Size(80, 30),
+                            ),
+                            onPressed: _deleteRestaurant,
+                            child: const Text('Delete'),
+                          ),
                   ],
                 )
               ],
@@ -98,5 +116,21 @@ class RestaurantCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _deleteRestaurant() async {
+    final restaurantId = widget.restaurant.restaurantId;
+
+    setState(() {
+      isClicked = true;
+    });
+
+    await context.read<DeleteRestaurantCubit>().deleteRestaurant(
+          restaurantId: restaurantId,
+        );
+
+    setState(() {
+      isClicked = false;
+    });
   }
 }

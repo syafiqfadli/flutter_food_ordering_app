@@ -1,9 +1,12 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
 import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
+import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
 import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
 
-class MenuCard extends StatelessWidget {
+class MenuCard extends StatefulWidget {
   final int index;
   final RestaurantEntity restaurant;
   final MenuEntity menu;
@@ -14,6 +17,13 @@ class MenuCard extends StatelessWidget {
     required this.restaurant,
     required this.menu,
   });
+
+  @override
+  State<MenuCard> createState() => _MenuCardState();
+}
+
+class _MenuCardState extends State<MenuCard> {
+  bool isClicked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,29 +56,30 @@ class MenuCard extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      '${index + 1}',
+                      '${widget.index + 1}',
                       style: const TextStyle(fontSize: 20),
                     ),
                   ),
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          menu.menuName.toTitleCase(),
+                        AutoSizeText(
+                          widget.menu.menuName.toTitleCase(),
+                          minFontSize: 20,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
-                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          "RM ${menu.price.toStringAsFixed(2)}",
+                          "RM ${widget.menu.price.toStringAsFixed(2)}",
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -90,22 +101,31 @@ class MenuCard extends StatelessWidget {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => EditMenuPage(
-                              restaurant: restaurant,
-                              menu: menu,
+                              restaurant: widget.restaurant,
+                              menu: widget.menu,
                             ),
                           ),
                         );
                       },
                       child: const Text('Edit'),
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red[400],
-                        fixedSize: const Size(80, 30),
-                      ),
-                      onPressed: () {},
-                      child: const Text('Delete'),
-                    ),
+                    isClicked
+                        ? const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: AppColor.primaryColor,
+                              ),
+                            ),
+                          )
+                        : ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red[400],
+                              fixedSize: const Size(80, 30),
+                            ),
+                            onPressed: _deleteMenu,
+                            child: const Text('Delete'),
+                          ),
                   ],
                 )
               ],
@@ -114,5 +134,23 @@ class MenuCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _deleteMenu() async {
+    final restaurantId = widget.restaurant.restaurantId;
+    final menuId = widget.menu.menuId;
+
+    setState(() {
+      isClicked = true;
+    });
+
+    await context.read<DeleteMenuAdminCubit>().deleteMenu(
+          restaurantId: restaurantId,
+          menuId: menuId,
+        );
+
+    setState(() {
+      isClicked = false;
+    });
   }
 }
