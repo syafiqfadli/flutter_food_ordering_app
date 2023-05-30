@@ -1,4 +1,4 @@
-import 'package:flutter_food_ordering_app/src/features/data/repositories/repositories.dart';
+import 'package:order_me/src/features/data/repositories/repositories.dart';
 import 'package:get_it/get_it.dart';
 
 final repoInject = GetIt.instance;

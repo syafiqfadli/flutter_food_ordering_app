@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
-import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/bloc/app/admin/is_edit_cubit.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/widgets/widgets.dart';
+import 'package:order_me/src/core/utils/utils.dart';
+import 'package:order_me/src/features/domain/entities/entities.dart';
+import 'package:order_me/src/features/presentation/bloc/app/admin/is_edit_cubit.dart';
+import 'package:order_me/src/features/presentation/bloc/bloc.dart';
+import 'package:order_me/src/features/presentation/widgets/widgets.dart';
 
 class EditMenuPage extends StatefulWidget {
   final RestaurantEntity restaurant;
@@ -209,9 +209,5 @@ class _EditMenuPageState extends State<EditMenuPage> {
           description: description,
           price: price,
         );
-
-    _menuNameController.clear();
-    _descriptionController.clear();
-    _priceController.clear();
   }
 }

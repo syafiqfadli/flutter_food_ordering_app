@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
-import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
+import 'package:order_me/src/features/domain/entities/entities.dart';
+import 'package:order_me/src/core/utils/utils.dart';
 import 'package:intl/intl.dart';
 
 class HistoryCard extends StatelessWidget {

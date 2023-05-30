@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/pages/app/user/user_app_page.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/widgets/widgets.dart';
+import 'package:order_me/src/core/utils/utils.dart';
+import 'package:order_me/src/features/presentation/bloc/bloc.dart';
+import 'package:order_me/src/features/presentation/pages/app/user/user_app_page.dart';
+import 'package:order_me/src/features/presentation/widgets/widgets.dart';
 
 class PaymentStatusPage extends StatefulWidget {
   const PaymentStatusPage({super.key});

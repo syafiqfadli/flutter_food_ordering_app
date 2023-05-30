@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/widgets/widgets.dart';
+import 'package:order_me/src/features/domain/entities/entities.dart';
+import 'package:order_me/src/features/presentation/bloc/bloc.dart';
+import 'package:order_me/src/features/presentation/widgets/widgets.dart';
 
 class OrderUserPage extends StatefulWidget {
   const OrderUserPage({super.key});

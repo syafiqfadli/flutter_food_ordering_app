@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
+import 'package:order_me/src/features/domain/entities/entities.dart';
 
 class SummaryDetails extends StatelessWidget {
   final List<MenuEntity> menuList;

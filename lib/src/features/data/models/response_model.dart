@@ -1,4 +1,4 @@
-import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
+import 'package:order_me/src/features/domain/entities/entities.dart';
 
 class ResponseModel extends ResponseEntity {
   const ResponseModel({

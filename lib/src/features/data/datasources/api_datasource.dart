@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter_food_ordering_app/src/core/errors/failures.dart';
-import 'package:flutter_food_ordering_app/src/features/data/models/models.dart';
+import 'package:order_me/src/core/errors/failures.dart';
+import 'package:order_me/src/features/data/models/models.dart';
 import 'package:http/http.dart' as http;
 
 abstract class ApiDataSource {
@@ -64,6 +64,10 @@ class ApiDataSourceImpl implements ApiDataSource {
       return Left(ServerFailure(message: message));
     } on TimeoutException catch (timeout) {
       return Left(ServerFailure(message: timeout.toString()));
+    } on FormatException catch (_) {
+      return const Left(ServerFailure(message: "Server offline."));
+    } on HandshakeException catch (_) {
+      return const Left(ServerFailure(message: "Server offline."));
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }

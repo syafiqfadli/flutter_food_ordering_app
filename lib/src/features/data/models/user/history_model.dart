@@ -1,5 +1,5 @@
-import 'package:flutter_food_ordering_app/src/features/data/models/models.dart';
-import 'package:flutter_food_ordering_app/src/features/domain/entities/user/user.dart';
+import 'package:order_me/src/features/data/models/models.dart';
+import 'package:order_me/src/features/domain/entities/user/user.dart';
 
 class HistoryModel extends HistoryEntity {
   const HistoryModel({

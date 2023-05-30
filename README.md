@@ -1,4 +1,4 @@
-# flutter_food_ordering_app
+# order_me
 
 A new Flutter project.
 

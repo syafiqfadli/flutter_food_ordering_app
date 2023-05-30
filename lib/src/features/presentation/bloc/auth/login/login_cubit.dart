@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_food_ordering_app/src/core/errors/failures.dart';
-import 'package:flutter_food_ordering_app/src/features/data/repositories/repositories.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
+import 'package:order_me/src/core/errors/failures.dart';
+import 'package:order_me/src/features/data/repositories/repositories.dart';
+import 'package:order_me/src/features/presentation/bloc/bloc.dart';
 
 part 'login_state.dart';
 

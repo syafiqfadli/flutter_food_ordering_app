@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
-import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
+import 'package:order_me/src/core/utils/utils.dart';
+import 'package:order_me/src/features/domain/entities/entities.dart';
+import 'package:order_me/src/features/presentation/bloc/bloc.dart';
+import 'package:order_me/src/features/presentation/pages/pages.dart';
 
 class MenuCard extends StatefulWidget {
   final int index;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_food_ordering_app/src/core/injections/injections.dart';
-import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
+import 'package:order_me/src/core/injections/injections.dart';
+import 'package:order_me/src/core/utils/utils.dart';
+import 'package:order_me/src/features/presentation/bloc/bloc.dart';
+import 'package:order_me/src/features/presentation/pages/pages.dart';
 
 class UserAppPage extends StatefulWidget {
   const UserAppPage({Key? key}) : super(key: key);

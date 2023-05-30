@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/pages/pages.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/widgets/widgets.dart';
+import 'package:order_me/src/core/utils/utils.dart';
+import 'package:order_me/src/features/presentation/pages/pages.dart';
+import 'package:order_me/src/features/presentation/widgets/widgets.dart';
 
 class UserAppHeader extends StatefulWidget {
   final String title;

@@ -1,5 +1,5 @@
-import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
-import 'package:flutter_food_ordering_app/src/features/data/models/models.dart';
+import 'package:order_me/src/features/domain/entities/entities.dart';
+import 'package:order_me/src/features/data/models/models.dart';
 
 class UserModel extends UserEntity {
   const UserModel({

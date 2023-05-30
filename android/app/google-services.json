@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:248916372101:android:21215348fead25c1dd57ec",
         "android_client_info": {
-          "package_name": "com.example.flutter_food_ordering_app"
+          "package_name": "com.example.order_me"
         }
       },
       "oauth_client": [

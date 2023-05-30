@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_food_ordering_app/src/features/data/repositories/repositories.dart';
-import 'package:flutter_food_ordering_app/src/features/domain/entities/entities.dart';
+import 'package:order_me/src/features/data/repositories/repositories.dart';
+import 'package:order_me/src/features/domain/entities/entities.dart';
 
 class UserInfoCubit extends Cubit<UserEntity> {
   final UserRepo userRepo;

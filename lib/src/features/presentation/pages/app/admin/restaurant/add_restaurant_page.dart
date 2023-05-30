@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_food_ordering_app/src/core/utils/utils.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/bloc/app/app.dart';
-import 'package:flutter_food_ordering_app/src/features/presentation/widgets/widgets.dart';
+import 'package:order_me/src/core/utils/utils.dart';
+import 'package:order_me/src/features/presentation/bloc/app/app.dart';
+import 'package:order_me/src/features/presentation/widgets/widgets.dart';
 
 class AddRestaurantPage extends StatefulWidget {
   const AddRestaurantPage({super.key});

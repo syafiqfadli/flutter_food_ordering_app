@@ -1,4 +1,4 @@
-import 'package:flutter_food_ordering_app/src/features/presentation/bloc/bloc.dart';
+import 'package:order_me/src/features/presentation/bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final blocInject = GetIt.instance;
